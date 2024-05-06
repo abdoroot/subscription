@@ -1,6 +1,6 @@
 run:templ build
-	@./bin/main
+	@./bin/cmd
 build:
-	@go build -o bin/main cmd/main.go
+	@go build -o bin/ ./...
 templ:
 	@templ generate	
