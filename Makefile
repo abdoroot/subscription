@@ -5,4 +5,6 @@ build:
 templ:
 	@templ generate	
 migrate:
-	@go run scripts/migrate.go		
+	@go run scripts/migrate.go -cmd=up
+migrate_down:
+	@go run scripts/migrate.go -cmd=down				

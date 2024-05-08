@@ -2,6 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"flag"
+	"fmt"
+	"path/filepath"
 
 	"github.com/abdoroot/subscription/util"
 	"github.com/golang-migrate/migrate"
@@ -18,6 +21,10 @@ func main() {
 		logrus.Fatal("Error loading .env file")
 	}
 
+	cmd := flag.String("cmd", "up", "migrate up or down")
+	flag.Parse()
+	logrus.Info("migration cmd=", *cmd)
+
 	db, err := sql.Open("postgres", util.GetPostgresConnectionString())
 	if err != nil {
 		logrus.Fatal(err)
@@ -27,11 +34,22 @@ func main() {
 		logrus.Fatal(err)
 	}
 
+	migrationsPath := filepath.Join("", "migrations")
 	m, err := migrate.NewWithDatabaseInstance(
-		"file:///migrations",
+		fmt.Sprintf("file://%s", migrationsPath),
 		"postgres", driver)
 	if err != nil {
-		logrus.Fatal("NewWithDatabaseInstance ", err)
+		logrus.Fatal("NewWithDatabaseInstance error : ", err)
 	}
-	m.Up() // or m
+
+	switch *cmd {
+	case "up":
+		if err := m.Up(); err != nil {
+			logrus.Fatal("migrate up err: ", err)
+		}
+	case "down":
+		if err := m.Down(); err != nil {
+			logrus.Fatal("migrate down err: ", err)
+		}
+	}
 }
