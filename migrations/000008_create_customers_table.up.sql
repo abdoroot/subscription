@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS customers (
     company_name VARCHAR(255),
     email VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
