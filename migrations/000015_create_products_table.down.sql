@@ -2,4 +2,4 @@
 DROP TABLE IF EXISTS products;
 
 -- Drop ENUM Type
-DROP TYPE IF EXISTS product_types;
+DROP TYPE IF EXISTS product_type_enums;

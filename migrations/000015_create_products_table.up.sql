@@ -1,12 +1,12 @@
 -- Create ENUM Type
-CREATE TYPE product_types AS ENUM ('product', 'service');
+CREATE TYPE product_type_enums AS ENUM ('product', 'service');
 
 -- Create Table
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     company_id INT,
     name VARCHAR(255),
-    type product_types,
+    type product_type_enums,
     unit_id INT,
     price DECIMAL(10, 2),
     description TEXT,

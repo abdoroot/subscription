@@ -1,9 +1,9 @@
 -- Create Enum Type
-CREATE TYPE customer_types AS ENUM ('individual', 'company');
+CREATE TYPE customer_type_enums AS ENUM ('individual', 'company');
 -- Create Table
 CREATE TABLE IF NOT EXISTS customers (
     id SERIAL PRIMARY KEY,
-    type customer_types NOT NULL,
+    type customer_type_enums NOT NULL,
     display_name VARCHAR(255) NOT NULL,
     first_name VARCHAR(255),
     last_name VARCHAR(255),

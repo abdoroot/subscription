@@ -1,7 +1,7 @@
 -- Create ENUM Types
-CREATE TYPE addons_billing_types AS ENUM ('once', 'recurring');
-CREATE TYPE addons_billing_cycle AS ENUM ('week', 'month', 'year');
-CREATE TYPE addons_linked_to_plans_types AS ENUM ('all_plans', 'specific_plans');
+CREATE TYPE addons_billing_type_enums AS ENUM ('once', 'recurring');
+CREATE TYPE addons_billing_cycle_enums AS ENUM ('week', 'month', 'year');
+CREATE TYPE addons_linked_to_plans_type_enums AS ENUM ('all_plans', 'specific_plans');
 
 -- Create Table
 CREATE TABLE IF NOT EXISTS addons (
@@ -12,10 +12,10 @@ CREATE TABLE IF NOT EXISTS addons (
     display_in_widget BOOLEAN,
     pricing_model_id INT,
     unit_id INT,
-    billing_type addons_billing_types,
-    billing_cycle addons_billing_cycle,
+    billing_type addons_billing_type_enums,
+    billing_cycle addons_billing_cycle_enums,
     price DECIMAL(10, 2),
-    linked_to_plans addons_linked_to_plans_types,
+    linked_to_plans addons_linked_to_plans_type_enums,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
