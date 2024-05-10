@@ -1,6 +1,7 @@
 package store
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/abdoroot/subscription/types"
@@ -39,6 +40,15 @@ func (s *settingStore) UpdateSettingValueById(value string, id int) error {
 	}
 	query := "update settings set value = :value,updated_at= :updated_at where id = :id"
 	_, err := s.db.NamedExec(query, r)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *settingStore) DeleteSettingById(id int) error {
+	query := fmt.Sprintf("delete from settings where id=%v", id)
+	_, err := s.db.Exec(query)
 	if err != nil {
 		return err
 	}

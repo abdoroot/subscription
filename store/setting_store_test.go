@@ -49,3 +49,20 @@ func TestUpdateSettingValueById(t *testing.T) {
 		t.Error("error UpdateSettingValueById ", err)
 	}
 }
+
+func TestDeleteSettingById(t *testing.T) {
+	if insertedSetting.Id == 0 {
+		t.Error("TestDeleteSettingById Depend on insertedSetting run the all test")
+	}
+
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Error("error connect to db")
+	}
+
+	s := NewSettingStore(db)
+	err = s.DeleteSettingById(insertedSetting.Id)
+	if err != nil {
+		t.Error("error DeleteSettingById ", err)
+	}
+}
