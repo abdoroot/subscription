@@ -8,6 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var Createduser types.User
+
 func TestCreateUser(t *testing.T) {
 	db, err := util.ConnectToPq()
 	if err != nil {
@@ -31,17 +33,24 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	insertedUser, err := userStore.CreateUser(user)
+	Createduser = insertedUser
 	if err != nil {
 		t.Errorf("error Store CreateUser: %v", err)
 		t.Fail()
 	}
 
+	assert.Greater(t, insertedUser.Id, 0)
 	assert.Equal(t, 60, len(user.Password))
 	assert.Equal(t, user.CompanyId, insertedUser.CompanyId)
 	assert.Equal(t, user.Name, insertedUser.Name)
 }
 
 func TestUpdateUserById(t *testing.T) {
+	if Createduser.Id == 0 {
+		//not set
+		t.Error("the test depend on Createduser")
+	}
+
 	db, err := util.ConnectToPq()
 	if err != nil {
 		t.Error("error connect to db")
@@ -57,7 +66,7 @@ func TestUpdateUserById(t *testing.T) {
 
 	userStore := NewUserStore(db)
 	user, err := request.CreateUpdateRequest()
-	user.Id = 1 //for testing perpose
+	user.Id = Createduser.Id //for testing perpose
 	if err != nil {
 		t.Errorf("error CreateUpdateRequest: %v", err)
 	}
@@ -66,4 +75,20 @@ func TestUpdateUserById(t *testing.T) {
 	if err != nil {
 		t.Errorf("error UpdateUser: %v", err)
 	}
+}
+
+func TestDeleteUserById(t *testing.T) {
+	if Createduser.Id == 0 {
+		//not set
+		t.Error("the test depend on Createduser")
+	}
+
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Error("error connect to db")
+	}
+
+	userStore := NewUserStore(db)
+	err = userStore.DeleteUserById(Createduser.Id)
+	assert.Nil(t, err,"DeleteUserById err")
 }

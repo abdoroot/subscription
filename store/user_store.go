@@ -21,10 +21,17 @@ func NewUserStore(db *sqlx.DB) *userStore {
 
 func (s *userStore) CreateUser(user types.User) (types.User, error) {
 	user.CreatedAt = time.Now().UTC()
-	_, err := s.db.NamedExec(`insert into users (company_id,role_id,name,email,password,phone_number,is_active,created_at) values (:company_id, :role_id, :name, :email, :password, :phone_number,:is_active, :created_at)`, user)
+	query := `insert into users (company_id,role_id,name,email,password,phone_number,is_active,created_at) 
+	values (:company_id, :role_id, :name, :email, :password, :phone_number,:is_active, :created_at) RETURNING id;`
+	row, err := s.db.NamedQuery(query, user)
 	if err != nil {
 		return types.User{}, err
 	}
+	var lastInsertId int
+	if row.Next() {
+		row.Scan(&lastInsertId)
+	}
+	user.Id = int(lastInsertId)
 	return user, nil
 }
 

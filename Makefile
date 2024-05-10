@@ -9,4 +9,4 @@ migrate:
 migrate_down:
 	@go run scripts/migrate.go -cmd=down				
 test:
-	@go test ./... -count=1
+	@go test ./... -count=1 -v
