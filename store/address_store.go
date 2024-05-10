@@ -18,26 +18,26 @@ func NewAddressStore(db *sqlx.DB) *addressStore {
 }
 
 func (s *addressStore) CreateAddress(address types.Address) (types.Address, error) {
-    address.CreatedAt = time.Now().UTC()
-    address.UpdatedAt = time.Now().UTC()
-    query := `
+	address.CreatedAt = time.Now().UTC()
+	address.UpdatedAt = time.Now().UTC()
+	query := `
         INSERT INTO addresses (type, customer_id, country_id, city_id, line1, line2, created_at, updated_at)
         VALUES (:type, :customer_id, :country_id, :city_id, :line1, :line2, :created_at, :updated_at)
         RETURNING id;
     `
-    row, err := s.db.NamedQuery(query, address)
-    if err != nil {
-        return types.Address{}, err
-    }
-    defer row.Close()
+	row, err := s.db.NamedQuery(query, address)
+	if err != nil {
+		return types.Address{}, err
+	}
+	defer row.Close()
 
-    if row.Next() {
-        if err := row.Scan(&address.ID); err != nil {
-            return types.Address{}, err
-        }
-    }
+	if row.Next() {
+		if err := row.Scan(&address.ID); err != nil {
+			return types.Address{}, err
+		}
+	}
 
-    return address, nil
+	return address, nil
 }
 
 func (s *addressStore) UpdateAddress(address types.Address) error {
@@ -53,6 +53,16 @@ func (s *addressStore) UpdateAddress(address types.Address) error {
 		return err
 	}
 	return nil
+}
+
+func (s *addressStore) GetAddressByCustomerId(customerID int) ([]types.Address, error) {
+	var addresses []types.Address
+	query := `SELECT * FROM addresses WHERE customer_id = $1;`
+	err := s.db.Select(&addresses, query, customerID)
+	if err != nil {
+		return nil, err
+	}
+	return addresses, nil
 }
 
 func (s *addressStore) DeleteAddressByID(id int) error {

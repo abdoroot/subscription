@@ -62,6 +62,33 @@ func TestUpdateAddress(t *testing.T) {
 	}
 }
 
+func TestGetAddressByCustomerId(t *testing.T) {
+	if createdAddress.ID == 0 {
+		t.Error("TestGetAddressByCustomerId depends on createdAddress from TestCreateAddress")
+		return
+	}
+
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Error("error connecting to the database")
+		return
+	}
+
+	addressStore := NewAddressStore(db)
+	addresses, err := addressStore.GetAddressByCustomerId(createdAddress.CustomerID)
+	if err != nil {
+		t.Errorf("error getting addresses by customer ID: %v", err)
+		return
+	}
+
+	assert := assert.New(t)
+	assert.NotEmpty(addresses, "no addresses found for customer ID")
+
+	for _, address := range addresses {
+		assert.Equal(createdAddress.CustomerID, address.CustomerID, "address does not belong to the correct customer ID")
+	}
+}
+
 func TestDeleteAddressByID(t *testing.T) {
 	if createdAddress.ID == 0 {
 		t.Error("TestDeleteAddressByID depends on createdAddress from TestCreateAddress")
