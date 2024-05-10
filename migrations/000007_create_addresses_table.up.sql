@@ -2,7 +2,7 @@
 CREATE TYPE address_type_enums AS ENUM ('shipping', 'billing');
 -- Create Table
 CREATE TABLE IF NOT EXISTS addresses (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     type address_type_enums NOT NULL,
     customer_id INT,   
     country_id INT,
