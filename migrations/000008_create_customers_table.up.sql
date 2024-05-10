@@ -3,6 +3,7 @@ CREATE TYPE customer_type_enums AS ENUM ('individual', 'company');
 -- Create Table
 CREATE TABLE IF NOT EXISTS customers (
     id SERIAL PRIMARY KEY,
+    company_id INT,
     type customer_type_enums NOT NULL,
     display_name VARCHAR(255) NOT NULL,
     first_name VARCHAR(255),
