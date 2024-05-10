@@ -11,6 +11,12 @@ type Setting struct {
 	UpdatedAt time.Time `db:"updated_at"`
 }
 
+type UpdateSettingRequest struct {
+	Id       int       `db:"id"`
+	Value    string    `db:"value"`
+	UpdatedAt time.Time `db:"updated_at"`
+}
+
 func (s Setting) Validate() bool {
 	return true
 }

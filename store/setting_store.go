@@ -29,3 +29,18 @@ func (s *settingStore) CreateSetting(param types.Setting) (types.Setting, error)
 	}
 	return param, nil
 }
+
+func (s *settingStore) UpdateSettingValueById(value string, id int) error {
+	updateAt := time.Now()
+	r := types.UpdateSettingRequest{
+		Id:        id,
+		Value:     value,
+		UpdatedAt: updateAt,
+	}
+	query := "update settings set value = :value,updated_at= :updated_at where id = :id"
+	_, err := s.db.NamedExec(query, r)
+	if err != nil {
+		return err
+	}
+	return nil
+}

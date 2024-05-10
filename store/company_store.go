@@ -35,7 +35,8 @@ func (s *userStore) CreateCompany(param types.Company) (types.Company, error) {
 	return param, nil
 }
 
-func (s *userStore) UpdateCompanyById(param types.Company, excludeTags ...string) (types.Company, error) {
+func (s *userStore) UpdateCompany(param types.Company, excludeTags ...string) (types.Company, error) {
+	param.UpdatedAt = time.Now()
 	excludeTags = append(excludeTags, "id", "billing_type", "created_at")
 	query, err := util.SqlxStructUpdateQueryBuilder(param, "companies", excludeTags...)
 	if err != nil {

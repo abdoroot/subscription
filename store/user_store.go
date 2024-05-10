@@ -36,6 +36,7 @@ func (s *userStore) CreateUser(user types.User) (types.User, error) {
 }
 
 func (s *userStore) UpdateUser(user types.User, excludeTags ...string) (types.User, error) {
+	user.UpdatedAt = time.Now()
 	excludeTags = append(excludeTags, "id", "company_id", "created_at")
 	query, err := util.SqlxStructUpdateQueryBuilder(user, "users", excludeTags...)
 	if err != nil {

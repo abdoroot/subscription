@@ -52,7 +52,7 @@ func TestCreateCompanyUpdateDelete(t *testing.T) {
 			CurrencyId:            7,
 			BillingType:           "once",
 		}
-		updatedCompany, err := s.UpdateCompanyById(UpdateCompanyParam)
+		updatedCompany, err := s.UpdateCompany(UpdateCompanyParam)
 		if err != nil {
 			t.Errorf("error UpdateCompany: %v", err)
 		}
