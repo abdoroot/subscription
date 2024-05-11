@@ -78,7 +78,7 @@ func (s *customerStore) UpdateCustomer(customer types.Customer) error {
 }
 
 func (s *customerStore) DeleteCustomerByID(id int) error {
-	//First delete customer address 
+	//First delete customer address
 	err := s.addStore.DeleteAddressByCustomerId(id)
 	if err != nil {
 		return err
@@ -109,6 +109,16 @@ func (s *customerStore) GetCustomersByCompanyId(id int) ([]types.Customer, error
 	err := s.db.Select(&customers, query, id)
 	if err != nil {
 		return nil, err
+	}
+	return customers, nil
+}
+
+func (s *customerStore) GetAll() ([]types.Customer, error) {
+	var customers []types.Customer
+	query := `SELECT * FROM customers`
+	err := s.db.Select(&customers, query)
+	if err != nil {
+		return []types.Customer{}, err
 	}
 	return customers, nil
 }
