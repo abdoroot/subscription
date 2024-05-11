@@ -46,6 +46,37 @@ func TestDeleteProduct(t *testing.T) {
 	assert.Greater(t, p.Id, 0)
 }
 
+func TestGetProduct(t *testing.T) {
+	sps, p, err := createSubProduct()
+	if err != nil {
+		t.Error("error creating createSubProduct ", err)
+	}
+	defer sps.DeleteProductById(p.Id)
+	t.Run("GetProductById", func(t *testing.T) {
+		product, err := sps.GetProductById(p.Id)
+		if err != nil {
+			t.Error("error GetProductById ", err)
+		}
+		assert.Greater(t, product.Id, 0)
+	})
+
+	t.Run("GetProductsByCompanyId", func(t *testing.T) {
+		products, err := sps.GetProductsByCompanyId(p.CompanyId)
+		if err != nil {
+			t.Error("error GetProductsByCompanyId ", err)
+		}
+		assert.Greater(t, len(products), 0)
+	})
+
+	t.Run("GetAll", func(t *testing.T) {
+		products, err := sps.GetAll()
+		if err != nil {
+			t.Error("error GetAll", err)
+		}
+		assert.Greater(t, len(products), 0)
+	})
+}
+
 // test helper func
 func createSubProduct() (*subscriptionProductsStore, types.SubscriptionProduct, error) {
 	db, err := util.ConnectToPq()

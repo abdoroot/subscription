@@ -46,6 +46,33 @@ func (s *subscriptionProductsStore) UpdateProductById(param types.SubscriptionPr
 	return nil
 }
 
+func (s *subscriptionProductsStore) GetAll() ([]types.SubscriptionProduct, error) {
+	var p []types.SubscriptionProduct
+	query := `select * from subscription_products`
+	if err := s.db.Select(&p, query); err != nil {
+		return []types.SubscriptionProduct{}, err
+	}
+	return p, nil
+}
+
+func (s *subscriptionProductsStore) GetProductsByCompanyId(id int) ([]types.SubscriptionProduct, error) {
+	var p []types.SubscriptionProduct
+	query := `select * from subscription_products where company_id =$1`
+	if err := s.db.Select(&p, query, id); err != nil {
+		return []types.SubscriptionProduct{}, err
+	}
+	return p, nil
+}
+
+func (s *subscriptionProductsStore) GetProductById(id int) (types.SubscriptionProduct, error) {
+	var p types.SubscriptionProduct
+	query := `select * from subscription_products where id =$1`
+	if err := s.db.Get(&p, query, id); err != nil {
+		return types.SubscriptionProduct{}, err
+	}
+	return p, nil
+}
+
 func (s *subscriptionProductsStore) DeleteProductById(id int) error {
 	query := `delete from subscription_products where id = $1`
 	_, err := s.db.Exec(query, id)
