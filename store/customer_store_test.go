@@ -17,7 +17,8 @@ func TestCustomerStore(t *testing.T) {
 	if err != nil {
 		t.Fatal("error connecting to the database:", err)
 	}
-	customerStore := store.NewCustomerStore(db)
+	addStore := store.NewAddressStore(db)
+	customerStore := store.NewCustomerStore(db, addStore)
 
 	t.Run("CreateCustomer", func(t *testing.T) {
 		customer := types.Customer{
@@ -30,6 +31,15 @@ func TestCustomerStore(t *testing.T) {
 			Email:       "john.doe@example.com",
 			CreatedAt:   time.Now().UTC(),
 			UpdatedAt:   time.Now().UTC(),
+			Address: []types.Address{
+				types.Address{
+					Type:      "shipping",
+					CountryID: 2,
+					CityID:    3,
+					Line1:     "123 Main St",
+					Line2:     "Apt 101",
+				},
+			},
 		}
 		createdCustomer, err := customerStore.CreateCustomer(customer)
 		globalCustomer = createdCustomer

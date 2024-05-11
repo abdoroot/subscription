@@ -13,6 +13,7 @@ type Customer struct {
 	Email       string    `db:"email"`
 	CreatedAt   time.Time `db:"created_at"`
 	UpdatedAt   time.Time `db:"updated_at"`
+	Address     []Address
 }
 
 func (c Customer) Validate() bool {

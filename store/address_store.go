@@ -73,3 +73,12 @@ func (s *addressStore) DeleteAddressByID(id int) error {
 	}
 	return nil
 }
+
+func (s *addressStore) DeleteAddressByCustomerId(id int) error {
+	query := "DELETE FROM addresses WHERE customer_id = :id;"
+	_, err := s.db.NamedExec(query, map[string]interface{}{"id": id})
+	if err != nil {
+		return err
+	}
+	return nil
+}
