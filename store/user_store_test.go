@@ -8,8 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var Createduser types.User
-
 func TestCreateUser(t *testing.T) {
 	db, err := util.ConnectToPq()
 	if err != nil {
@@ -33,7 +31,6 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	insertedUser, err := userStore.CreateUser(user)
-	Createduser = insertedUser
 	if err != nil {
 		t.Errorf("error Store CreateUser: %v", err)
 		t.Fail()
@@ -46,15 +43,16 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestUpdateUserById(t *testing.T) {
-	if Createduser.Id == 0 {
-		//not set
-		t.Error("the test depend on Createduser")
-	}
-
 	db, err := util.ConnectToPq()
 	if err != nil {
 		t.Error("error connect to db")
 	}
+	user, err := createUser()
+	if err != nil {
+		t.Error("error createUser")
+	}
+	userStore := NewUserStore(db)
+	defer userStore.DeleteUserById(user.Id)
 	request := types.UpdateUserParam{
 		RoleId:      3,
 		Name:        "abdelhadi mohamed",
@@ -64,31 +62,95 @@ func TestUpdateUserById(t *testing.T) {
 		IsActive:    true,
 	}
 
-	userStore := NewUserStore(db)
-	user, err := request.CreateUpdateRequest()
-	user.Id = Createduser.Id //for testing perpose
+	req, err := request.CreateUpdateRequest()
+	req.Id = user.Id
 	if err != nil {
 		t.Errorf("error CreateUpdateRequest: %v", err)
 	}
-	UpdateUser, err := userStore.UpdateUser(user)
-	_ = UpdateUser
-	if err != nil {
+
+	if err := userStore.UpdateUser(user); err != nil {
 		t.Errorf("error UpdateUser: %v", err)
 	}
 }
 
 func TestDeleteUserById(t *testing.T) {
-	if Createduser.Id == 0 {
-		//not set
-		t.Error("the test depend on Createduser")
-	}
-
 	db, err := util.ConnectToPq()
 	if err != nil {
 		t.Error("error connect to db")
 	}
 
+	user, err := createUser()
+	if err != nil {
+		t.Error("error createUser")
+	}
 	userStore := NewUserStore(db)
-	err = userStore.DeleteUserById(Createduser.Id)
-	assert.Nil(t, err,"DeleteUserById err")
+	err = userStore.DeleteUserById(user.Id)
+	assert.Nil(t, err, "DeleteUserById err")
+}
+
+func TestGetUsers(t *testing.T) {
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Error("error connect to db")
+	}
+
+	user, err := createUser()
+	if err != nil {
+		t.Error("error createUser")
+	}
+	assert.NotNil(t, user)
+	userStore := NewUserStore(db)
+	defer userStore.DeleteUserById(user.Id)
+	t.Run("GetAllUsers", func(t *testing.T) {
+		users, err := userStore.GetAllUsers()
+		if err != nil {
+			t.Error("error GetAllUsers", err)
+		}
+		assert.Greater(t, len(users), 0)
+	})
+
+	t.Run("GetAllUserByCompnayId", func(t *testing.T) {
+		users, err := userStore.GetAllUserByCompnayId(user.CompanyId)
+		if err != nil {
+			t.Error("error GetAllUsers", err)
+		}
+		assert.Greater(t, len(users), 0)
+	})
+
+	t.Run("GetUserById", func(t *testing.T) {
+		u, err := userStore.GetUserById(user.Id)
+		if err != nil {
+			t.Error("error GetAllUsers", err)
+		}
+		assert.Equal(t, u.Id, user.Id)
+	})
+}
+
+// helper func
+func createUser() (types.User, error) {
+	db, err := util.ConnectToPq()
+	if err != nil {
+		return types.User{}, nil
+	}
+	userStore := NewUserStore(db)
+
+	req := types.CreateUserParam{
+		CompanyId:   1,
+		RoleId:      2,
+		Name:        "abdelhadi",
+		Email:       "abdelhadi@gmail.com",
+		PhoneNumber: "0554241891",
+		Password:    "11223344",
+		IsActive:    true,
+	}
+	user, err := req.CreateUserFromRequest()
+	if err != nil {
+		return types.User{}, nil
+	}
+
+	insertedUser, err := userStore.CreateUser(user)
+	if err != nil {
+		return types.User{}, nil
+	}
+	return insertedUser, nil
 }

@@ -35,19 +35,46 @@ func (s *userStore) CreateUser(user types.User) (types.User, error) {
 	return user, nil
 }
 
-func (s *userStore) UpdateUser(user types.User, excludeTags ...string) (types.User, error) {
+func (s *userStore) GetAllUsers() ([]types.User, error) {
+	query := `select * from users;`
+	var users []types.User
+	if err := s.db.Select(&users, query); err != nil {
+		return []types.User{}, err
+	}
+	return users, nil
+}
+
+func (s *userStore) GetAllUserByCompnayId(id int) ([]types.User, error) {
+	query := `select * from users where company_id = $1;`
+	var users []types.User
+	if err := s.db.Select(&users, query, id); err != nil {
+		return []types.User{}, err
+	}
+	return users, nil
+}
+
+func (s *userStore) GetUserById(id int) (types.User, error) {
+	query := `select * from users where id =$1;`
+	var user types.User
+	if err := s.db.Get(&user, query, id); err != nil {
+		return types.User{}, err
+	}
+	return user, nil
+}
+
+func (s *userStore) UpdateUser(user types.User, excludeTags ...string) error {
 	user.UpdatedAt = time.Now()
 	excludeTags = append(excludeTags, "id", "company_id", "created_at")
 	query, err := util.SqlxStructUpdateQueryBuilder(user, "users", excludeTags...)
 	if err != nil {
-		return types.User{}, err
+		return err
 	}
 
 	_, err = s.db.NamedExec(query, user)
 	if err != nil {
-		return types.User{}, err
+		return err
 	}
-	return types.User{}, nil
+	return nil
 }
 
 func (s *userStore) DeleteUserById(id int) error {
