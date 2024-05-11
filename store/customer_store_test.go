@@ -10,6 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var globalCustomer types.Customer
+
 func TestCustomerStore(t *testing.T) {
 	db, err := util.ConnectToPq()
 	if err != nil {
@@ -19,6 +21,7 @@ func TestCustomerStore(t *testing.T) {
 
 	t.Run("CreateCustomer", func(t *testing.T) {
 		customer := types.Customer{
+			CompanyId:   1,
 			Type:        "individual",
 			DisplayName: "John Doe",
 			FirstName:   "John",
@@ -29,18 +32,21 @@ func TestCustomerStore(t *testing.T) {
 			UpdatedAt:   time.Now().UTC(),
 		}
 		createdCustomer, err := customerStore.CreateCustomer(customer)
+		globalCustomer = createdCustomer
 		assert.NoError(t, err)
 		assert.NotZero(t, createdCustomer.ID)
 		assert.Equal(t, customer.Type, createdCustomer.Type)
 		assert.Equal(t, customer.DisplayName, createdCustomer.DisplayName)
-		// Add more assertions as needed for other fields
 	})
 
 	t.Run("UpdateCustomer", func(t *testing.T) {
+		if globalCustomer.ID == 0 {
+			t.Error("test UpdateCustomer depend on globalCustomer")
+		}
 		updatedCustomer := types.Customer{
-			ID:          1, // Assuming the customer with ID 1 exists
+			ID:          globalCustomer.ID,
 			Type:        "company",
-			DisplayName: "Updated Company",
+			DisplayName: "Updated name",
 			FirstName:   "",
 			LastName:    "",
 			CompanyName: "Updated Company Name",
@@ -52,25 +58,39 @@ func TestCustomerStore(t *testing.T) {
 	})
 
 	t.Run("GetCustomerByID", func(t *testing.T) {
-		id := 1 // Assuming the customer with ID 1 exists
+		if globalCustomer.ID == 0 {
+			t.Error("test GetCustomerByID depend on globalCustomer")
+		}
+		id := globalCustomer.ID
 		customer, err := customerStore.GetCustomerByID(id)
-		assert.NoError(t, err)
+		if err != nil {
+			t.Fatal("error GetCustomerByID :", err)
+		}
 		assert.NotNil(t, customer)
 		assert.Equal(t, id, customer.ID)
 	})
 
-	t.Run("GetCustomersByType", func(t *testing.T) {
-		customers, err := customerStore.GetCustomersByCompanyId(1)
-		assert.NoError(t, err)
-		assert.NotEmpty(t, customers)
-		for _, customer := range customers {
-			assert.Equal(t, "individual", customer.Type)
+	t.Run("GetCustomersByCompanyId", func(t *testing.T) {
+		if globalCustomer.ID == 0 {
+			t.Error("test GetCustomersByCompanyId depend on globalCustomer")
 		}
+		customers, err := customerStore.GetCustomersByCompanyId(globalCustomer.CompanyId)
+		if err != nil {
+			t.Fatal("error GetCustomersByCompanyId :", err)
+		}
+		assert.NotEmpty(t, customers)
+		assert.Greater(t, len(customers), 0)
 	})
 
 	t.Run("DeleteCustomerByID", func(t *testing.T) {
-		id := 1 // Assuming the customer with ID 1 exists
+		if globalCustomer.ID == 0 {
+			t.Error("test DeleteCustomerByID depend on globalCustomer")
+		}
+		id := globalCustomer.ID
 		err := customerStore.DeleteCustomerByID(id)
+		if err != nil {
+			t.Error("error DeleteCustomerByID:", err)
+		}
 		assert.NoError(t, err)
 	})
 }

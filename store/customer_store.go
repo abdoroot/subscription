@@ -21,8 +21,8 @@ func (s *customerStore) CreateCustomer(customer types.Customer) (types.Customer,
 	customer.CreatedAt = time.Now().UTC()
 	customer.UpdatedAt = time.Now().UTC()
 	query := `
-		INSERT INTO customers (type, display_name, first_name, last_name, company_name, email, created_at, updated_at)
-		VALUES (:type, :display_name, :first_name, :last_name, :company_name, :email, :created_at, :updated_at)
+		INSERT INTO customers (type,company_id, display_name, first_name, last_name, company_name, email, created_at, updated_at)
+		VALUES (:type,:company_id ,:display_name, :first_name, :last_name, :company_name, :email, :created_at, :updated_at)
 		RETURNING id;
 	`
 	rows, err := s.db.NamedQuery(query, customer)
@@ -55,7 +55,7 @@ func (s *customerStore) UpdateCustomer(customer types.Customer) error {
 
 func (s *customerStore) DeleteCustomerByID(id int) error {
 	query := `DELETE FROM customers WHERE id = :id;`
-	_, err := s.db.Exec(query, id)
+	_, err := s.db.NamedExec(query, map[string]any{"id": id})
 	if err != nil {
 		return err
 	}

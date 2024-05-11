@@ -4,6 +4,7 @@ import "time"
 
 type Customer struct {
 	ID          int       `db:"id"`
+	CompanyId   int       `db:"company_id"`
 	Type        string    `db:"type"`
 	DisplayName string    `db:"display_name"`
 	FirstName   string    `db:"first_name"`
