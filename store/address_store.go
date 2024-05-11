@@ -44,7 +44,7 @@ func (s *addressStore) UpdateAddress(address types.Address) error {
 	address.UpdatedAt = time.Now().UTC()
 	query := `
         UPDATE addresses
-        SET type = :type, customer_id = :customer_id, country_id = :country_id, city_id = :city_id,
+        SET type = :type, country_id = :country_id, city_id = :city_id,
             line1 = :line1, line2 = :line2, updated_at = :updated_at
         WHERE id = :id;
     `
