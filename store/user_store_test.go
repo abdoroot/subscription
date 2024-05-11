@@ -31,6 +31,7 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	insertedUser, err := userStore.CreateUser(user)
+	defer userStore.DeleteUserById(insertedUser.Id)
 	if err != nil {
 		t.Errorf("error Store CreateUser: %v", err)
 		t.Fail()

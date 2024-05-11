@@ -10,8 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var globalRole types.Role
-
 func TestRoleStore(t *testing.T) {
 	db, err := util.ConnectToPq()
 	if err != nil {
@@ -52,18 +50,20 @@ func TestRoleStore(t *testing.T) {
 			UpdatedAt:              time.Now().UTC(),
 		}
 		createdRole, err := roleStore.CreateRole(role)
-		globalRole = createdRole
+		defer roleStore.DeleteRoleByID(createdRole.ID)
 		assert.NoError(t, err)
 		assert.NotZero(t, createdRole.ID)
 		assert.Equal(t, role.Name, createdRole.Name)
 	})
 
 	t.Run("UpdateRole", func(t *testing.T) {
-		if globalRole.ID == 0 {
-			t.Error("test UpdateRole depends on globalRole")
+		role, err := creatRole()
+		if err != nil {
+			t.Fatal("error creatRole", err)
 		}
+		defer roleStore.DeleteRoleByID(role.ID)
 		updatedRole := types.Role{
-			ID:                     globalRole.ID,
+			ID:                     role.ID,
 			Name:                   "Updated Admin",
 			CanAddProducts:         false,
 			CanUpdateProducts:      false,
@@ -92,32 +92,115 @@ func TestRoleStore(t *testing.T) {
 			CanViewDashboard:       false,
 			UpdatedAt:              time.Now().UTC(),
 		}
-		err := roleStore.UpdateRole(updatedRole)
+		err = roleStore.UpdateRole(updatedRole)
 		assert.NoError(t, err)
 	})
 
 	t.Run("GetRoleByID", func(t *testing.T) {
-		if globalRole.ID == 0 {
-			t.Error("test GetRoleByID depends on globalRole")
+		role, err := creatRole()
+		if err != nil {
+			t.Fatal("error creatRole", err)
 		}
-		id := globalRole.ID
-		role, err := roleStore.GetRoleByID(id)
+		defer roleStore.DeleteRoleByID(role.ID)
+		r, err := roleStore.GetRoleByID(role.ID)
 		if err != nil {
 			t.Fatal("error GetRoleByID:", err)
 		}
-		assert.NotNil(t, role)
-		assert.Equal(t, id, role.ID)
+		assert.NotNil(t, r)
+		assert.Equal(t, r.ID, role.ID)
 	})
 
 	t.Run("DeleteRoleByID", func(t *testing.T) {
-		if globalRole.ID == 0 {
-			t.Error("test DeleteRoleByID depends on globalRole")
-		}
-		id := globalRole.ID
-		err := roleStore.DeleteRoleByID(id)
+		role, err := creatRole()
 		if err != nil {
+			t.Fatal("error creatRole", err)
+		}
+		defer roleStore.DeleteRoleByID(role.ID)
+		if err = roleStore.DeleteRoleByID(role.ID); err != nil {
 			t.Error("error DeleteRoleByID:", err)
 		}
 		assert.NoError(t, err)
 	})
+}
+
+func TestGetAll(t *testing.T) {
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Fatal("error connecting to the database:", err)
+	}
+	roleStore := store.NewRoleStore(db)
+	role, err := creatRole()
+	if err != nil {
+		t.Fatal("error creatRole", err)
+	}
+	defer roleStore.DeleteRoleByID(role.ID)
+	roles, err := roleStore.GetAll()
+	if err != nil {
+		t.Fatal("error GetAll:", err)
+	}
+	assert.Greater(t, len(roles), 0)
+}
+
+func GetRolesByCompanyId(t *testing.T) {
+	db, err := util.ConnectToPq()
+	if err != nil {
+		t.Fatal("error connecting to the database:", err)
+	}
+	roleStore := store.NewRoleStore(db)
+	role, err := creatRole()
+	if err != nil {
+		t.Fatal("error creatRole", err)
+	}
+	defer roleStore.DeleteRoleByID(role.ID)
+	roles, err := roleStore.GetRolesByCompanyId(role.CompanyID)
+	if err != nil {
+		t.Fatal("error GetRolesByCompanyId:", err)
+	}
+	assert.Greater(t, len(roles), 0)
+}
+
+// helper func
+func creatRole() (types.Role, error) {
+	db, err := util.ConnectToPq()
+	if err != nil {
+		return types.Role{}, err
+	}
+	roleStore := store.NewRoleStore(db)
+	role := types.Role{
+		CompanyID:              1,
+		Name:                   "Admin",
+		CanAddProducts:         true,
+		CanUpdateProducts:      true,
+		CanDeleteProducts:      true,
+		CanViewProducts:        true,
+		CanAddCustomers:        true,
+		CanUpdateCustomers:     true,
+		CanDeleteCustomers:     true,
+		CanViewCustomers:       true,
+		CanAddSubscriptions:    true,
+		CanUpdateSubscriptions: true,
+		CanDeleteSubscriptions: true,
+		CanViewSubscriptions:   true,
+		CanAddItems:            true,
+		CanUpdateItems:         true,
+		CanDeleteItems:         true,
+		CanViewItems:           true,
+		CanAddInvoices:         true,
+		CanUpdateInvoices:      true,
+		CanDeleteInvoices:      true,
+		CanViewInvoices:        true,
+		CanAddPayments:         true,
+		CanUpdatePayments:      true,
+		CanDeletePayments:      true,
+		CanViewPayments:        true,
+		CanViewDashboard:       true,
+		CreatedAt:              time.Now().UTC(),
+		UpdatedAt:              time.Now().UTC(),
+	}
+	createdRole, err := roleStore.CreateRole(role)
+	if err != nil {
+		return types.Role{}, err
+	}
+
+	return createdRole, nil
 }

@@ -80,3 +80,23 @@ func (s *roleStore) GetRoleByID(id int) (types.Role, error) {
 	}
 	return role, nil
 }
+
+func (s *roleStore) GetRolesByCompanyId(id int) ([]types.Role, error) {
+	var roles []types.Role
+	query := `SELECT * FROM roles WHERE company_id = $1;`
+	err := s.db.Select(&roles, query, id)
+	if err != nil {
+		return []types.Role{}, err
+	}
+	return roles, nil
+}
+
+func (s *roleStore) GetAll() ([]types.Role, error) {
+	var roles []types.Role
+	query := `SELECT * FROM roles`
+	err := s.db.Select(&roles, query)
+	if err != nil {
+		return []types.Role{}, err
+	}
+	return roles, nil
+}
