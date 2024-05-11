@@ -154,3 +154,13 @@ func (s *companyStore) CreateAdminStaffRoles(companyId int) error {
 
 	return nil
 }
+
+func (s *companyStore) GetAll() ([]types.Company, error) {
+	var companies []types.Company
+	query := `SELECT * FROM companies`
+	err := s.db.Select(&companies, query)
+	if err != nil {
+		return []types.Company{}, err
+	}
+	return companies, nil
+}
