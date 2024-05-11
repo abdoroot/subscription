@@ -13,7 +13,8 @@ func TestCreateCompanyUpdateDelete(t *testing.T) {
 	if err != nil {
 		t.Error("error connect to db")
 	}
-	s := NewUserStore(db)
+	rs := NewRoleStore(db)
+	s := NewCompanyStore(db, rs)
 	CreateCompanyParam := types.Company{
 		Id:                    8,
 		CountryId:             5,

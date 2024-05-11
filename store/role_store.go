@@ -62,6 +62,15 @@ func (s *roleStore) DeleteRoleByID(id int) error {
 	return nil
 }
 
+func (s *roleStore) DeleteRolesByCompanyID(id int) error {
+	query := `DELETE FROM roles WHERE company_id = :id;`
+	_, err := s.db.NamedExec(query, map[string]any{"id": id})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s *roleStore) GetRoleByID(id int) (types.Role, error) {
 	var role types.Role
 	query := `SELECT * FROM roles WHERE id = $1;`
