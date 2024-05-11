@@ -56,11 +56,31 @@ func (s *productStore) DeleteProductByID(id int) error {
 	return nil
 }
 
-func (s *productStore) DeleteProductByCompanyID(id int) error {
+func (s *productStore) DeleteProductsByCompanyID(id int) error {
 	query := `DELETE FROM products WHERE company_id = :id;`
 	_, err := s.db.NamedExec(query, map[string]any{"id": id})
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func (s *productStore) GetAll() ([]types.Product, error) {
+	var products []types.Product
+	query := `SELECT * FROM products`
+	err := s.db.Select(&products, query)
+	if err != nil {
+		return []types.Product{}, err
+	}
+	return products, nil
+}
+
+func (s *productStore) GetAllByCompanyId(id int) ([]types.Product, error) {
+	var products []types.Product
+	query := `SELECT * FROM products where company_id= $1`
+	err := s.db.Select(&products, query,id)
+	if err != nil {
+		return []types.Product{}, err
+	}
+	return products, nil
 }

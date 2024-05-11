@@ -21,6 +21,13 @@ func TestCustomerStore(t *testing.T) {
 	customerStore := store.NewCustomerStore(db, addStore)
 
 	t.Run("CreateCustomer", func(t *testing.T) {
+		addr := types.Address{
+			Type:      "shipping",
+			CountryID: 2,
+			CityID:    3,
+			Line1:     "123 Main St",
+			Line2:     "Apt 101",
+		}
 		customer := types.Customer{
 			CompanyId:   1,
 			Type:        "individual",
@@ -32,13 +39,7 @@ func TestCustomerStore(t *testing.T) {
 			CreatedAt:   time.Now().UTC(),
 			UpdatedAt:   time.Now().UTC(),
 			Address: []types.Address{
-				types.Address{
-					Type:      "shipping",
-					CountryID: 2,
-					CityID:    3,
-					Line1:     "123 Main St",
-					Line2:     "Apt 101",
-				},
+				addr,
 			},
 		}
 		createdCustomer, err := customerStore.CreateCustomer(customer)
