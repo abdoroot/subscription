@@ -65,6 +65,15 @@ func (s *subscriptionFeatureStore) GetFeaturesByCompanyId(id int) ([]types.Subsc
 	return p, nil
 }
 
+func (s *subscriptionFeatureStore) GetFeaturesByPlanId(id int) ([]types.SubscriptionFeature, error) {
+	var p []types.SubscriptionFeature
+	query := `select * from subscription_features where subscription_plan_id =$1`
+	if err := s.db.Select(&p, query, id); err != nil {
+		return []types.SubscriptionFeature{}, err
+	}
+	return p, nil
+}
+
 func (s *subscriptionFeatureStore) GetFeatureById(id int) (types.SubscriptionFeature, error) {
 	var p types.SubscriptionFeature
 	query := `select * from subscription_features where id =$1`
@@ -76,6 +85,15 @@ func (s *subscriptionFeatureStore) GetFeatureById(id int) (types.SubscriptionFea
 
 func (s *subscriptionFeatureStore) DeleteFeatureById(id int) error {
 	query := `delete from subscription_features where id = $1`
+	_, err := s.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *subscriptionFeatureStore) DeleteFeaturesByPlandId(id int) error {
+	query := `delete from subscription_features where subscription_plan_id = $1`
 	_, err := s.db.Exec(query, id)
 	if err != nil {
 		return err
