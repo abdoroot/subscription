@@ -62,6 +62,52 @@ func TestGetPlansByCompanyId(t *testing.T) {
 	assert.Greater(t, len(pls), 0)
 }
 
+func TestUpdatePlanById(t *testing.T) {
+	s, p, err := createSubPlan()
+	if err != nil {
+		t.Error("error CreateSubscriptionPlan", err)
+	}
+	defer s.DeletePlanById(p.Id)
+	if err != nil {
+		t.Error("error GetPlansByCompanyId", err)
+	}
+	param := types.SubscriptionPlan{
+		CompanyId:         1,
+		ProductId:         2,
+		Name:              "basic plan",
+		Code:              "b-2", //updated
+		UnitId:            3,
+		IsActive:          true,
+		Price:             15.99,
+		Type:              "service",
+		BillingEvery:      "week",
+		BillingEveryCount: 3, //updated
+		BillingCycle:      "auto_renewal",
+		BillingCycleCount: 0,
+		TrialPeriod:       0.00,
+		SetupFee:          0.00,
+		Description:       "test description", //updated
+		Features: []types.SubscriptionFeature{
+			{Name: "unlimited download"},
+			{Name: "Seo optmization"},
+		},
+	}
+	err = s.UpdatePlanById(param, p.Id)
+	if err != nil {
+		t.Error("error UpdatePlanById", err)
+	}
+
+	//getById
+	got, err := s.GetPlanById(p.Id)
+	if err != nil {
+		t.Error("error GetPlanById", err)
+	}
+
+	assert.Equal(t, got.Code, param.Code)
+	assert.Equal(t, got.Description, param.Description)
+	assert.Equal(t, got.BillingEveryCount, param.BillingEveryCount)
+
+}
 func TestGetPlanById(t *testing.T) {
 	s, p, err := createSubPlan()
 	if err != nil {

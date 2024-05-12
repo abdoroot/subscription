@@ -55,7 +55,14 @@ func (s *SubscriptionPlanStore) CreatePlan(param types.SubscriptionPlan) (types.
 	return param, nil
 }
 
-func (s *SubscriptionPlanStore) UpdatePlan() error {
+func (s *SubscriptionPlanStore) UpdatePlanById(param types.SubscriptionPlan, id int) error {
+	param.Id = id
+	param.UpdatedAt = time.Now()
+	query := `update subscription_plans set product_id= :product_id,name= :name,code= :code,unit_id= :unit_id,type= :type,is_active= :is_active, price= :price,billing_every= :billing_every,billing_every_count= :billing_every_count,billing_cycle = :billing_cycle ,billing_cycle_count= :billing_cycle_count,trial_period = :trial_period,setup_fee = :setup_fee,description = :description,have_features = :have_features,updated_at = :updated_at where id= :id;`
+	_, err := s.db.NamedExec(query, param)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
