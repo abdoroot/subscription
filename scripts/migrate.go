@@ -34,7 +34,7 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	migrationsPath := filepath.Join("", "migrations")
+	migrationsPath := filepath.Join("", "db/migrations")
 	m, err := migrate.NewWithDatabaseInstance(
 		fmt.Sprintf("file://%s", migrationsPath),
 		"postgres", driver)
