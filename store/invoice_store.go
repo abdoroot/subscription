@@ -18,8 +18,8 @@ func NewInvoiceStore(db *sqlx.DB) *InvoiceStore {
 func (s *InvoiceStore) CreateInvoice(param types.Invoice) (types.Invoice, error) {
 	param.CreatedAt = time.Now()
 	param.UpdatedAt = time.Now()
-	query := `INSERT INTO invoices(company_id, customer_id, order_number, invoice_date, subject, terms_and_conditions, attachments, created_at, updated_at)
-			   VALUES (:company_id, :customer_id, :order_number, :invoice_date, :subject, :terms_and_conditions, :attachments, :created_at, :updated_at)
+	query := `INSERT INTO invoices(company_id, customer_id, order_number, invoice_date,due_date, subject, terms_and_conditions, attachments, created_at, updated_at)
+			   VALUES (:company_id, :customer_id, :order_number, :invoice_date,:due_date, :subject, :terms_and_conditions, :attachments, :created_at, :updated_at)
 			   RETURNING id`
 	row, err := s.db.NamedQuery(query, param)
 	if err != nil {
@@ -40,6 +40,7 @@ func (s *InvoiceStore) UpdateInvoiceByID(param types.Invoice, id int) error {
 			  SET customer_id = :customer_id,
 			      order_number = :order_number,
 			      invoice_date = :invoice_date,
+			      due_date = :due_date,
 			      subject = :subject,
 			      terms_and_conditions = :terms_and_conditions,
 			      attachments = :attachments,

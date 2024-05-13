@@ -6,6 +6,7 @@ import (
 
 	"github.com/abdoroot/subscription/types"
 	"github.com/abdoroot/subscription/util"
+	"github.com/lib/pq"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -60,7 +61,7 @@ func TestUpdateInvoiceByID(t *testing.T) {
 		InvoiceDate:        time.Now(),
 		Subject:            "updated subject",
 		TermsAndConditions: "updated terms",
-		Attachments:        []int{1, 2,3},
+		Attachments:        pq.Int32Array{1, 2, 3},
 	}
 
 	err = store.UpdateInvoiceByID(param, invoice.ID)
@@ -111,11 +112,13 @@ func CreateInvoice() (*InvoiceStore, types.Invoice, error) {
 	store := NewInvoiceStore(db)
 	param := types.Invoice{
 		CompanyID:          1,
+		CustomerID:         2,
 		OrderNumber:        "Example Order",
 		InvoiceDate:        time.Now(),
+		DueDate:            time.Now().Add((time.Hour * 24) * 3), //three days
 		Subject:            "Example Subject",
 		TermsAndConditions: "Example Terms",
-		Attachments:        []int{1, 2},
+		Attachments:        pq.Int32Array{1, 2},
 	}
 	invoice, err := store.CreateInvoice(param)
 	return store, invoice, err
