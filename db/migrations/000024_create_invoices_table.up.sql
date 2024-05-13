@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS invoices (
     invoice_date DATE,
     subject VARCHAR(255),
     terms_and_conditions TEXT,
-    attachments JSON,
+    attachments INTEGER[],
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
