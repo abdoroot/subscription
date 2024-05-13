@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS invoices (
     customer_id INT,
     order_number VARCHAR(255),
     invoice_date DATE,
+    due_date DATE,
     subject VARCHAR(255),
     terms_and_conditions TEXT,
     attachments INTEGER[],
