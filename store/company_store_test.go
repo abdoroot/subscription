@@ -10,6 +10,9 @@ import (
 
 func TestCreateCompanyUpdateDelete(t *testing.T) {
 	db, err := util.ConnectToPq()
+	defer func() {
+		db.Close()
+	}()
 	if err != nil {
 		t.Error("error connect to db")
 	}

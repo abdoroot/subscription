@@ -14,6 +14,7 @@ func TestCreateAddon(t *testing.T) {
 		if addon.ID > 0 {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
+		s.db.Close()
 	}()
 	assert.Nil(t, err)
 	assert.Greater(t, addon.ID, 0)
@@ -26,6 +27,7 @@ func TestUpdateAddon(t *testing.T) {
 		if addon.ID > 0 {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
+		s.db.Close()
 	}()
 
 	params := types.Addon{
@@ -51,6 +53,7 @@ func TestGetAddonById(t *testing.T) {
 		if addon.ID > 0 {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
+		s.db.Close()
 	}()
 	got, err := s.GetAddonById(addon.ID)
 	assert.Nil(t, err)
@@ -66,6 +69,7 @@ func TestGetAddonsByCompanyId(t *testing.T) {
 		if addon.ID > 0 {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
+		s.db.Close()
 	}()
 	got, err := s.GetAddonByCompanyId(addon.CompanyID)
 	assert.Nil(t, err)
@@ -79,6 +83,7 @@ func TestGetAllAddons(t *testing.T) {
 		if addon.ID > 0 {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
+		s.db.Close()
 	}()
 	got, err := s.GetALl()
 	assert.Nil(t, err)

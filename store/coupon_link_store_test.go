@@ -12,6 +12,7 @@ import (
 func TestCreateCouponLink(t *testing.T) {
 	s, cl, err := createCouponLink()
 	defer s.DeleteCouponLinkById(cl.ID)
+	defer s.db.Close()
 	if err != nil {
 		t.Error("error createCouponLink ", err)
 	}
@@ -22,6 +23,7 @@ func TestCreateCouponLink(t *testing.T) {
 func TestGetCouponLinkById(t *testing.T) {
 	s, cl, err := createCouponLink()
 	defer s.DeleteCouponLinkById(cl.ID)
+	defer s.db.Close()
 	if err != nil {
 		t.Error("error createCouponLink ", err)
 	}

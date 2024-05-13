@@ -13,6 +13,9 @@ var globalCustomer types.Customer
 
 func TestCustomerStore(t *testing.T) {
 	db, err := util.ConnectToPq()
+	defer func() {
+		db.Close()
+	}()
 	if err != nil {
 		t.Fatal("error connecting to the database:", err)
 	}
@@ -110,14 +113,18 @@ func TestGetAll(t *testing.T) {
 	if err != nil {
 		t.Error("err createCustomer")
 	}
-	defer cs.DeleteCustomerByID(c.ID)
-
+	defer func() {
+		if c.ID > 0 {
+			cs.DeleteCustomerByID(c.ID)
+		}
+		cs.db.Close()
+	}()
 	//test
 	customers, err := cs.GetAll()
 	if err != nil {
 		t.Error("err GetAll customers")
 	}
-	assert.Greater(t,len(customers),0)
+	assert.Greater(t, len(customers), 0)
 }
 
 // helper func

@@ -28,6 +28,7 @@ func TestCreateAddonsLink(t *testing.T) {
 		if cl.ID > 0 {
 			err := store.DeleteAddonsLinkById(cl.ID)
 			assert.NoError(t, err)
+			db.Close()
 		}
 	}()
 
