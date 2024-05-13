@@ -11,7 +11,7 @@ type addonLinkStore struct {
 	db *sqlx.DB
 }
 
-func NewaddonLinkStore(db *sqlx.DB) *addonLinkStore {
+func NewAddonLinkStore(db *sqlx.DB) *addonLinkStore {
 	return &addonLinkStore{
 		db: db,
 	}
@@ -45,8 +45,35 @@ func (s *addonLinkStore) GetAddonsLinkById(id int) (types.AddonLink, error) {
 	return link, nil
 }
 
+func (s *addonLinkStore) GetAddonsLinkByPlanId(id int) (types.AddonLink, error) {
+	var link types.AddonLink
+	query := `select * from addons_links  where addon_id= $1`
+	if err := s.db.Get(&link, query, id); err != nil {
+		return types.AddonLink{}, err
+	}
+	return link, nil
+}
+
 func (s *addonLinkStore) DeleteAddonsLinkById(id int) error {
 	query := `DELETE FROM addons_links WHERE id = :id;`
+	_, err := s.db.NamedExec(query, map[string]any{"id": id})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *addonLinkStore) DeleteAddonLinkByPlanId(id int) error {
+	query := `DELETE FROM addons_links WHERE plan_id = :id;`
+	_, err := s.db.NamedExec(query, map[string]any{"id": id})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *addonLinkStore) DeleteAddonLinkByAddonId(id int) error {
+	query := `DELETE FROM addons_links WHERE addon_id = :id;`
 	_, err := s.db.NamedExec(query, map[string]any{"id": id})
 	if err != nil {
 		return err

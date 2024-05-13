@@ -12,7 +12,7 @@ import (
 func TestCreateAddonsLink(t *testing.T) {
 	db, err := util.ConnectToPq()
 	assert.NoError(t, err)
-	store := NewaddonLinkStore(db)
+	store := NewAddonLinkStore(db)
 
 	param := types.AddonLink{
 		AddonId: 100,
@@ -35,7 +35,7 @@ func TestCreateAddonsLink(t *testing.T) {
 func TestGetAddonsLinkById(t *testing.T) {
 	db, err := util.ConnectToPq()
 	assert.NoError(t, err)
-	store := NewaddonLinkStore(db)
+	store := NewAddonLinkStore(db)
 	cl, err := createAddonLink(store)
 	assert.NoError(t, err)
 
