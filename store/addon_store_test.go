@@ -67,7 +67,7 @@ func TestGetAddonsByCompanyId(t *testing.T) {
 			assert.Nil(t, s.DeleteAddonById(addon.ID))
 		}
 	}()
-	got, err := s.GetAddonByCompanyId(addon.ID)
+	got, err := s.GetAddonByCompanyId(addon.CompanyID)
 	assert.Nil(t, err)
 	assert.Greater(t, len(got), 0)
 }

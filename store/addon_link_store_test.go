@@ -11,6 +11,9 @@ import (
 
 func TestCreateAddonsLink(t *testing.T) {
 	db, err := util.ConnectToPq()
+	defer func() {
+		assert.Nil(t, db.Close())
+	}()
 	assert.NoError(t, err)
 	store := NewAddonLinkStore(db)
 
@@ -34,6 +37,9 @@ func TestCreateAddonsLink(t *testing.T) {
 
 func TestGetAddonsLinkById(t *testing.T) {
 	db, err := util.ConnectToPq()
+	defer func() {
+		assert.Nil(t, db.Close())
+	}()
 	assert.NoError(t, err)
 	store := NewAddonLinkStore(db)
 	cl, err := createAddonLink(store)
