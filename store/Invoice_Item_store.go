@@ -77,3 +77,9 @@ func (s *invoiceItemStore) DeleteInvoiceItemByID(id int) error {
 	_, err := s.db.Exec(query, id)
 	return err
 }
+
+func (s *invoiceItemStore) DeleteInvoiceItemByInvoiceID(id int) error {
+	query := `DELETE FROM invoice_items WHERE invoice_id = $1`
+	_, err := s.db.Exec(query, id)
+	return err
+}

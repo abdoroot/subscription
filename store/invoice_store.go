@@ -5,17 +5,20 @@ import (
 
 	"github.com/abdoroot/subscription/types"
 	"github.com/jmoiron/sqlx"
+	"github.com/sirupsen/logrus"
 )
 
 type InvoiceStore struct {
-	db *sqlx.DB
+	db         *sqlx.DB
+	itemsStore *invoiceItemStore
 }
 
-func NewInvoiceStore(db *sqlx.DB) *InvoiceStore {
-	return &InvoiceStore{db: db}
+func NewInvoiceStore(db *sqlx.DB, itemsStore *invoiceItemStore) *InvoiceStore {
+	return &InvoiceStore{db: db, itemsStore: itemsStore}
 }
 
 func (s *InvoiceStore) CreateInvoice(param types.Invoice) (types.Invoice, error) {
+
 	param.CreatedAt = time.Now()
 	param.UpdatedAt = time.Now()
 	query := `INSERT INTO invoices(company_id, customer_id, order_number, invoice_date,due_date, subject, terms_and_conditions, attachments, created_at, updated_at)
@@ -30,10 +33,24 @@ func (s *InvoiceStore) CreateInvoice(param types.Invoice) (types.Invoice, error)
 			return types.Invoice{}, err
 		}
 	}
+
+	//insert invoice items
+	if len(param.Items) > 0 {
+		for _, item := range param.Items {
+			item.InvoiceID = param.ID
+			if _, err = s.itemsStore.CreateInvoiceItem(item); err != nil {
+				//delete the invoice
+				s.DeleteInvoiceByID(param.ID)
+				return types.Invoice{}, err
+			}
+		}
+	}
+
 	return param, nil
 }
 
-func (s *InvoiceStore) UpdateInvoiceByID(param types.Invoice, id int) error {
+func (s *InvoiceStore) UpdateInvoiceByID(param types.Invoice, id int) (err error) {
+	//Update the invoice
 	param.UpdatedAt = time.Now()
 	param.ID = id
 	query := `UPDATE invoices
@@ -46,8 +63,28 @@ func (s *InvoiceStore) UpdateInvoiceByID(param types.Invoice, id int) error {
 			      attachments = :attachments,
 			      updated_at = :updated_at
 			  WHERE id = :id`
-	_, err := s.db.NamedExec(query, param)
-	return err
+	if _, err := s.db.NamedExec(query, param); err != nil {
+		return err
+	}
+	// Update invoice items
+	if len(param.Items) > 0 {
+		for _, item := range param.Items {
+			if item.ID > 0 {
+				//update the item
+				if err := s.itemsStore.UpdateInvoiceItemByID(item, item.ID); err != nil {
+					logrus.Errorf("error UpdateInvoiceItemByID item %v", item)
+					return err
+				}
+			} else if item.ID == 0 {
+				if _, err := s.itemsStore.CreateInvoiceItem(item); err != nil {
+					logrus.Errorf("error CreateInvoiceItem form UpdateInvoiceByID func item %v", item)
+					return err
+				}
+			}
+		}
+	}
+
+	return nil
 }
 
 func (s *InvoiceStore) GetInvoiceByID(id int) (types.Invoice, error) {
@@ -72,6 +109,11 @@ func (s *InvoiceStore) GetAllInvoices() ([]types.Invoice, error) {
 }
 
 func (s *InvoiceStore) DeleteInvoiceByID(id int) error {
+	//First delete invoice items
+	if err := s.itemsStore.DeleteInvoiceItemByInvoiceID(id); err != nil {
+		return err
+	}
+	//Second delete the invoice
 	query := `DELETE FROM invoices WHERE id = $1`
 	_, err := s.db.Exec(query, id)
 	return err

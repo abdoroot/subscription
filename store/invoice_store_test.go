@@ -109,7 +109,8 @@ func CreateInvoice() (*InvoiceStore, types.Invoice, error) {
 	if err != nil {
 		return nil, types.Invoice{}, err
 	}
-	store := NewInvoiceStore(db)
+	itemStore := NewInvoiceItemStore(db)
+	store := NewInvoiceStore(db, itemStore)
 	param := types.Invoice{
 		CompanyID:          1,
 		CustomerID:         2,
@@ -119,6 +120,17 @@ func CreateInvoice() (*InvoiceStore, types.Invoice, error) {
 		Subject:            "Example Subject",
 		TermsAndConditions: "Example Terms",
 		Attachments:        pq.Int32Array{1, 2},
+		Items: []types.InvoiceItem{
+			{
+				CompanyID: 1,
+				Type:      "product",
+				Qty:       2,
+				Rate:      10.00,
+				ItemID:    123,
+				Discount:  0.00,
+				Amount:    10.00,
+			},
+		},
 	}
 	invoice, err := store.CreateInvoice(param)
 	return store, invoice, err

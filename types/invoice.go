@@ -16,6 +16,7 @@ type Invoice struct {
 	Subject            string        `db:"subject"`
 	TermsAndConditions string        `db:"terms_and_conditions"`
 	Attachments        pq.Int32Array `db:"attachments"`
+	Items              []InvoiceItem `json:"invoice_items"`
 	CreatedAt          time.Time     `db:"created_at"`
 	UpdatedAt          time.Time     `db:"updated_at"`
 }
