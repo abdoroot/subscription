@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS payments (
     payment_date DATE,
     payment_method_id INT,
     reference VARCHAR(255),
-    attachments JSON,
+    attachments INTEGER[],
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
