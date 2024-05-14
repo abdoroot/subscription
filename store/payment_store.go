@@ -37,8 +37,7 @@ func (s *PaymentStore) UpdatePaymentByID(payment types.Payment, id int) error {
 	payment.UpdatedAt = time.Now()
 	payment.ID = id
 	query := `UPDATE payments
-              SET company_id = :company_id,
-                  customer_id = :customer_id,
+              SET customer_id = :customer_id,
                   invoice_id = :invoice_id,
                   amount_received = :amount_received,
                   payment_date = :payment_date,
