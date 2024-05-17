@@ -1,0 +1,36 @@
+package layouts
+
+templ AdminApp() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Simple HTMX App with Tailwind</title>
+			<link href="static/css/style.css" rel="stylesheet"/>
+			<script src="https://unpkg.com/htmx.org@1.6.1/dist/htmx.min.js"></script>
+			<script src="static/js/app.js"></script>
+		</head>
+		<body class="flex  h-screen">
+			<!-- Left Sidebar -->
+			@SideBar() 
+			<!-- Main Content Area -->
+			<div class="w-full">
+				@NavBar()
+				<main id="main_content" class="p-4">
+					<!-- main content goes here -->
+					{ children... }
+				</main>
+			</div>
+			<script>
+			
+        // HTMX event handler to handle successful response
+        document.body.addEventListener('htmx:afterRequest', function (event) {
+            if (event.detail.xhr.responseURL.endsWith('/data')) {
+                console.log('Data fetched successfully!');
+            }
+        })
+    </script>
+		</body>
+	</html>
+}
