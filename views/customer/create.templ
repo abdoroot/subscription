@@ -1,0 +1,19 @@
+package customer
+
+import (
+	"github.com/abdoroot/subscription/views/layouts"
+)
+
+templ Create() {
+	@CreateHeader()
+}
+
+templ CreateHeader() {
+	<h1>create customer</h1>
+}
+
+templ FullCreateTempl() {
+	@layouts.AdminApp() {
+		@Create()
+	}
+}

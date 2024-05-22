@@ -1,5 +1,5 @@
-//menu dropdown
 document.addEventListener('DOMContentLoaded', function () {
+    //menu dropdown
     const buttons = document.querySelectorAll('[data-collapse-toggle]');
     buttons.forEach(function (button) {
         const menuId = button.getAttribute('data-collapse-toggle');
@@ -15,5 +15,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    //tabs active and not active
+    const tabs = document.querySelectorAll('.tabs li a');
+    // Add click event listener to each 'a' element
+    // Function to remove the 'active' class from all elements
+    function removeActiveClasses() {
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+    }
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            // Remove 'active' class from all 'a' elements
+            removeActiveClasses();
+            // Add 'active' class to the clicked 'a' element
+            this.classList.add('active');
+        });
+    });
 });
+
 

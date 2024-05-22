@@ -1,12 +1,16 @@
 package main
 
 import (
+	"math"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 
 	"github.com/abdoroot/subscription/util"
+	"github.com/abdoroot/subscription/views/customer"
 	"github.com/abdoroot/subscription/views/home"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
@@ -22,7 +26,7 @@ func main() {
 	//Connect to database
 	db, err := util.ConnectToPq()
 	if err != nil {
-		logrus.Fatal("error connecting to db", err)
+		logrus.Fatal("error connecting to db ", err)
 	}
 
 	router := fiber.New(fiber.Config{
@@ -38,13 +42,64 @@ func main() {
 		return util.RenderHtml(c, home.Index())
 	})
 
-	router.Get("/users", func(c *fiber.Ctx) error {
-		//for test perpose
-		if IHtmxRequest(c) {
-			return util.RenderHtml(c, home.Users())
-		}
-		return util.RenderHtml(c, home.FullUsers())
-	})
+	c := router.Group("customer")
+	{
+		c.Get("/", func(c *fiber.Ctx) error {
+			//for test perpose
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, customer.Customer())
+			}
+			return util.RenderHtml(c, customer.FullCustomerTempl())
+		})
+
+		c.Get("/:id<int>", func(c *fiber.Ctx) error {
+			//Show customer
+			logrus.Info("Show customer route")
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, customer.Show())
+			}
+			return util.RenderHtml(c, customer.FullShowTempl())
+		})
+
+		c.Get("/:id<int>/overview", func(c *fiber.Ctx) error {
+			//Show customer
+			//block html
+			return util.RenderHtml(c, customer.OverviewTab())
+		})
+
+		c.Get("/:id<int>/transaction", func(c *fiber.Ctx) error {
+			//Show customer
+			//block html
+			r := rand.Intn(math.MaxInt)
+			rs := strconv.Itoa(r)
+			return util.RenderHtml(c, customer.TransactionTab(rs))
+		})
+
+		c.Get("/:id<int>/mail", func(c *fiber.Ctx) error {
+			//Show customer
+			//block html
+			r := rand.Intn(math.MaxInt)
+			rs := strconv.Itoa(r)
+			return util.RenderHtml(c, customer.MailTab(rs))
+		})
+
+		c.Get("/:id<int>/statement", func(c *fiber.Ctx) error {
+			//Show customer
+			//block html
+			r := rand.Intn(math.MaxInt)
+			rs := strconv.Itoa(r)
+			return util.RenderHtml(c, customer.StatementTab(rs))
+		})
+
+		c.Get("/create", func(c *fiber.Ctx) error {
+			//Create customer
+			logrus.Info("create customer route")
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, customer.Create())
+			}
+			return util.RenderHtml(c, customer.FullCreateTempl())
+		})
+	}
 
 	//kill server signal
 	killSig := make(chan os.Signal, 1)
@@ -69,7 +124,7 @@ func main() {
 	logrus.Info("Server shutdown complete")
 }
 
-func IHtmxRequest(c *fiber.Ctx) bool {
+func IsHXRequest(c *fiber.Ctx) bool {
 	key := c.Request().Header.Peek("Hx-Request")
 	keyString := string(key)
 	return len(keyString) > 0

@@ -7,9 +7,9 @@ templ AdminApp() {
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>Simple HTMX App with Tailwind</title>
-			<link href="static/css/style.css" rel="stylesheet"/>
+			<link href="/static/css/style.css" rel="stylesheet"/>
 			<script src="https://unpkg.com/htmx.org@1.6.1/dist/htmx.min.js"></script>
-			<script src="static/js/app.js"></script>
+			<script src="/static/js/app.js"></script>
 		</head>
 		<body class="flex  h-screen">
 			<!-- Left Sidebar -->
@@ -17,7 +17,9 @@ templ AdminApp() {
 			<!-- Main Content Area -->
 			<div class="w-full">
 				@NavBar()
-				<main id="main_content" class="p-4">
+				<!-- htmx spinner  -->
+				// <div class="inline-block align-middle"><img id="spinner" class=" htmx-indicator" src="/static/img/spinner.gif"/></div>
+				<main id="main_content" class="px-3 py-2">
 					<!-- main content goes here -->
 					{ children... }
 				</main>

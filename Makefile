@@ -1,10 +1,11 @@
+export PATH := $(PATH):$(HOME)/go/bin
 run:export templ build
 	@./bin/cmd
 build:
 	@go build -o bin/ ./...
 templ:
 	@templ generate	
-migrate:
+migrate:createdb
 	@go run scripts/migrate.go -cmd=up
 migrate_down:
 	@go run scripts/migrate.go -cmd=down				
@@ -14,5 +15,8 @@ css:
 	npx tailwindcss -i views/css/app.css -o static/css/style.css --watch
 watch:export
 	templ generate --watch --proxy="http://localhost:4000" --cmd="air air -c .air.tom"
-export:
-	@export PATH=$PATH:$HOME/go/bin
+createdb:
+	@docker exec -it pq-container createdb --username=postgres --owner=postgres subscription
+dropdb:
+	@docker exec -it pq-container dropdb --username=postgres subscription		
+.PHONY: export

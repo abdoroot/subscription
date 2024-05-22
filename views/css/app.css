@@ -5,16 +5,48 @@
 .slide-up {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.7s ease-out;
+    transition: max-height 0.4s ease-out;
 }
 
 .slide-down {
     max-height: 500px; 
-    transition: max-height 0.7s ease-in;
+    transition: max-height 0.4s ease-in;
 }
 
 /* aside hove */
 aside li:hover > a:nth-child(2) {
     opacity: 1; 
-    transition: opacity 0.7s ease; 
+    transition: opacity 0.4s ease; 
+}
+
+.btn {
+    @apply py-2 px-4 rounded;
+}
+
+.btn-sm {
+    @apply  py-1 px-2 rounded;
+}
+
+.btn-xs {
+    @apply py-1 px-1 rounded;
+}
+
+.btn-secondary {
+    @apply bg-secondary text-white;
+}
+
+.tabs .active{
+    @apply font-bold border-b-2 border-secondaryblue;
+}
+
+.text-muted{
+    color:#6C7184;
+}
+
+.liketbl-header {
+    @apply flex flex-row uppercase border-b border-t font-semibold text-muted py-2 ;
+}
+
+.liketbl-item {
+    @apply flex flex-row hover:bg-secondarygray hover:cursor-pointer py-4 border-b ;
 }
