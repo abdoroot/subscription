@@ -1,1 +1,0 @@
-<p class=\"text-gray-700\">Welcome to the admin panel. This is the Dashboard.</p>

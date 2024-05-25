@@ -36,3 +36,23 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".normaltabs a");
+    const contents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+        console.log(tab);
+        tab.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Remove active class from all tabs and hide all content
+            tabs.forEach(t => t.classList.remove("active"));
+            contents.forEach(content => content.classList.add("hidden"));
+
+            // Add active class to the clicked tab and show the corresponding content
+            this.classList.add("active");
+            const activeContent = document.getElementById(this.dataset.tab);
+            activeContent.classList.remove("hidden");
+        });
+    });
+});

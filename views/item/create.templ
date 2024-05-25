@@ -1,0 +1,18 @@
+package item
+
+import (
+"github.com/abdoroot/subscription/views/layouts"
+)
+
+
+templ Create(){
+    <h2>Create item</h2>
+}
+
+
+templ FullCreate(){
+    @layouts.AdminApp() {
+        @Create()
+    }
+}
+

@@ -11,15 +11,15 @@ templ AdminApp() {
 			<script src="https://unpkg.com/htmx.org@1.6.1/dist/htmx.min.js"></script>
 			<script src="/static/js/app.js"></script>
 		</head>
-		<body class="flex  h-screen">
+		<body class="flex h-screen">
 			<!-- Left Sidebar -->
 			@SideBar() 
 			<!-- Main Content Area -->
-			<div class="w-full">
+			<div class="w-full overflow-y-auto scroll-smooth">
 				@NavBar()
 				<!-- htmx spinner  -->
-				// <div class="inline-block align-middle"><img id="spinner" class=" htmx-indicator" src="/static/img/spinner.gif"/></div>
-				<main id="main_content" class="px-3 py-2">
+				//commented <div class="inline-block align-middle"><img id="spinner" class=" htmx-indicator" src="/static/img/spinner.gif"/></div>
+				<main id="main_content">
 					<!-- main content goes here -->
 					{ children... }
 				</main>

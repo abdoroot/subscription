@@ -5,6 +5,7 @@ import (
 )
 
 templ Customer() {
+<div id="page" class="px-3 py-2">
 @Header()
 <div class="rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1">
 	<div class="max-w-full overflow-x-auto">
@@ -36,12 +37,13 @@ templ Customer() {
 		</div>
 	</div>
 </div>
+</div>
 }
 
 templ Header() {
 <div class="flex items-center">
 	<div class="flex-none">
-		<select class="bg-secondarygray p-2 rounded">
+		<select class="bg-white p-2 rounded">
 			<option>All</option>
 			<option>InActive</option>
 			<option>Non-Subscribers</option>

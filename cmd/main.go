@@ -12,6 +12,7 @@ import (
 	"github.com/abdoroot/subscription/util"
 	"github.com/abdoroot/subscription/views/customer"
 	"github.com/abdoroot/subscription/views/home"
+	"github.com/abdoroot/subscription/views/item"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/joho/godotenv"
@@ -98,6 +99,22 @@ func main() {
 				return util.RenderHtml(c, customer.Create())
 			}
 			return util.RenderHtml(c, customer.FullCreateTempl())
+		})
+	}
+
+	i := router.Group("item")
+	{
+		i.Get("/", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, item.Index())
+			}
+			return util.RenderHtml(c, item.FullTempl())
+		})
+		i.Get("/create", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, item.Create())
+			}
+			return util.RenderHtml(c, item.FullCreate())
 		})
 	}
 
