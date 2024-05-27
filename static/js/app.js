@@ -56,3 +56,41 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    //Modals
+    const openButtons = document.querySelectorAll('[data-target-modal]');
+    const overlayDiv = document.getElementById("overlay");
+    const closeButtons = document.querySelectorAll('.close-modal');
+
+    // Add event listeners to open buttons
+    Array.from(openButtons).forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const modalId = btn.getAttribute('data-target-modal');
+            const modalElement = document.getElementById(modalId);
+            if (modalElement) {
+                if (modalElement.classList.contains('hidden')) {
+                    modalElement.classList.remove('hidden');
+                    overlayDiv.classList.remove('hidden');
+                } else {
+                    modalElement.classList.add('hidden');
+                    overlayDiv.classList.add('hidden');
+                }
+            } else {
+                console.error(`No element found with ID ${modalId}`);
+            }
+        });
+    });
+
+    // Event listener to close the modal
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            //Close all modals
+            const modals = document.querySelectorAll('.modal');
+            Array.from(modals).forEach((modal) => {
+                modal.classList.add('hidden');
+                overlayDiv.classList.add('hidden');
+            });
+        });
+    });
+});

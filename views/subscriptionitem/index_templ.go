@@ -27,7 +27,23 @@ func Index() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"page\" class=\"h-screen\"><div class=\"flex\"><div class=\"w-4/12 sticky top-0 bg-black text-white\">left</div><div class=\"w-8/12 overflow-y-auto scroll-smooth\"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>right</div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"page\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CreateModal().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex\"><div class=\"w-2/6 sticky top-0 h-screen border-r border-secondarygraydarker\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = ItemsHeader().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col\"><div class=\"flex flex-col items-start bg-secondarygray py-6 px-2 border-b border-secondarygraydarker\"><span class=\"font-medium\">Vpn Service</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue  hover:text-white\">1 plan</span></div><div class=\"flex flex-col items-start bg-secondarygray py-6 px-2 border-b border-secondarygraydarker\"><span class=\"font-medium\">Premuim Gym</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white\">2 plan</span></div></div></div><div class=\"w-5/6 overflow-y-auto scroll-smooth\"></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -38,7 +54,7 @@ func Index() templ.Component {
 	})
 }
 
-func Header() templ.Component {
+func ItemsHeader() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -51,7 +67,31 @@ func Header() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none\"><select class=\"bg-white p-2 rounded\"><option>All</option> <option>Active</option> <option>InActive</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\"><button hx-get=\"/item/create\" hx-target=\"#main_content\" hx-indicator=\"#spinner\" hx-push-url=\"true\" class=\"flex items-center gap-2 text-sm bg-secondary rounded bg-primary px-2.5 py-1.5 text-white\"><svg class=\"fill-current w-3 h-3\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z\" fill=\"\"></path></svg> New</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center border-b-2 border-secondarygraydarker px-2\"><div class=\"flex-none\"><select class=\"bg-white py-2 rounded\"><option>All Products</option> <option>Active</option> <option>InActive</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\"><button data-target-modal=\"create-product-modal\" class=\"open-modal flex items-center gap-2 text-sm bg-secondary rounded px-2.5 py-1.5 text-white\"><svg class=\"fill-current w-3 h-3\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z\" fill=\"\"></path></svg> New</button></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func CreateModal() templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"create-product-modal\" tabindex=\"-1\" class=\"hidden modal overflow-y-auto overflow-x-hidden fixed top-1/4 left-1/3 z-50 justify-center items-center w-full h-[calc(100%-1rem)] max-h-full\"><div class=\"relative p-4 w-full max-w-md max-h-full\"><div class=\"relative bg-white rounded-lg shadow\"><div class=\"bg-secondarygray border-b border-secondarygraydarker py-3 px-2\"><span class=\"text-lg font-medium\">New Product</span> <button type=\"button\" class=\"close-modal absolute top-2 end-2.5 bg-transparent  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center\" data-modal-hide=\"popup-modal\"><svg class=\"w-3 h-3 text-red-500\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 14 14\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6\"></path></svg> <span class=\"sr-only\">Close modal</span></button></div><div class=\"flex flex-col text-sm w-full py-2 px-3\"><div class=\"pt-4\"><div class=\"text-red-500\">Name *</div><div class=\"\"><input type=\"text\" class=\"py-1.5 w-full rounded border border:black focus:border-secondaryblue\"></div></div><div class=\" pt-4\"><div class=\"\">Description</div><div class=\"\"><textarea type=\"text\" name=\"\" placeholder=\"Description\" class=\"w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue\"></textarea></div></div><div class=\"mt-2 py-4 border-t border-secondarygraydarker\"><button class=\" bg-secondary rounded  px-2.5 py-1.5 text-white\">Save</button> <button class=\"bg-secondarygray rounded border border-gray px-2.5 py-1.5 ml-2 close-modal\">Cancel</button></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -70,12 +110,12 @@ func FullTempl() templ.Component {
 			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var3 == nil {
-			templ_7745c5c3_Var3 = templ.NopComponent
+		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var4 == nil {
+			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Var4 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var5 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 			if !templ_7745c5c3_IsBuffer {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
@@ -90,7 +130,7 @@ func FullTempl() templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = layouts.AdminApp().Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layouts.AdminApp().Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

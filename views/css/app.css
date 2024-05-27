@@ -50,3 +50,21 @@ aside li:hover > a:nth-child(2) {
 .liketbl-item {
     @apply flex flex-row hover:bg-secondarygray hover:cursor-pointer py-4 border-b ;
 }
+
+@layer base {
+    /* Scroolbar */
+    /* width */
+    ::-webkit-scrollbar {
+      @apply w-1
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      @apply bg-inherit
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      @apply bg-gray-400 rounded-xl
+    }
+  }

@@ -12,6 +12,7 @@ module.exports = {
         primarydarker: '#181c2e', //darker
         secondary: '#22b378',
         secondarygray: '#fbfbfb',
+        secondarygraydarker: '#eee',
         secondaryblue: '#339DFF',
       },
     },
