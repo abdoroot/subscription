@@ -44,7 +44,7 @@ func Index() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col\"><div class=\"flex flex-col items-start bg-secondarygray py-6 px-2 border-b border-secondarygraydarker\"><span class=\"font-medium\">Vpn Service</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue  hover:text-white\">1 plan</span></div><div class=\"flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker\"><span class=\"font-medium\">Premuim Gym</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white\">2 plan</span></div></div></div><div class=\"w-5/6\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col\"><div class=\"flex flex-col items-start bg-secondarygray hover:bg-secondarygray py-6 px-2 border-b border-secondarygraydarker hover:cursor-pointer\"><span class=\"font-medium\">Vpn Service</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue  hover:text-white\">1 plan</span></div><div class=\"flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker hover:bg-secondarygray hover:cursor-pointer\"><span class=\"font-medium\">Premuim Gym</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white\">2 plan</span></div><div class=\"flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker hover:bg-secondarygray hover:cursor-pointer\"><span class=\"font-medium\">Silver</span> <span class=\"text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white\">2 plan</span></div></div></div><div class=\"w-5/6\" id=\"content-column\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -84,7 +84,12 @@ func ItemDescHeader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.Button("Add plan", components.ColorGreen, false, nil).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Button("Add plan", components.ColorGreen, false, templ.Attributes{
+			"hx-get":       "/subscription-item/plan/create",
+			"hx-target":    "#content-column",
+			"hx-indicator": "#spinner",
+			"hx-push-url":  "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

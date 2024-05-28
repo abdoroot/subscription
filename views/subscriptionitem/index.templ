@@ -13,17 +13,21 @@ templ Index() {
 			@ItemsHeader()
 			<div class="flex flex-col">
 				//items 
-				<div class="flex flex-col items-start bg-secondarygray py-6 px-2 border-b border-secondarygraydarker">
+				<div class="flex flex-col items-start bg-secondarygray hover:bg-secondarygray py-6 px-2 border-b border-secondarygraydarker hover:cursor-pointer">
 					<span class="font-medium">Vpn Service</span>
 					<span class="text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue  hover:text-white">1 plan</span>
 				</div>
-				<div class="flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker">
+				<div class="flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker hover:bg-secondarygray hover:cursor-pointer">
 					<span class="font-medium">Premuim Gym</span>
+					<span class="text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white">2 plan</span>
+				</div>
+				<div class="flex flex-col items-start py-6 px-2 border-b border-secondarygraydarker hover:bg-secondarygray hover:cursor-pointer">
+					<span class="font-medium">Silver</span>
 					<span class="text-sm w-auto mt-2 bg-secondarygray border border-secondarygraydarker p-0.5 hover:bg-secondaryblue hover:text-white">2 plan</span>
 				</div>
 			</div>
 		  </div>
-		  <div class="w-5/6">
+		  <div class="w-5/6" id="content-column">
 			@ItemDescHeader()
 			<div class="flex py-3 bg-secondarygray border-b border-secondarygraydarker text-sm">
 				<div class="items-center flex flex-col w-2/12">
@@ -111,7 +115,12 @@ templ ItemDescHeader() {
 
 		<div class="flex space-x-2">
 			@components.Button("Edit", components.ColorGray, false, templ.Attributes{"data-target-modal": "create-product-modal"})
-			@components.Button("Add plan", components.ColorGreen, false, nil)
+			@components.Button("Add plan", components.ColorGreen, false, templ.Attributes{
+				"hx-get": "/subscription-item/plan/create",
+				"hx-target": "#content-column",
+				"hx-indicator": "#spinner",
+				"hx-push-url": "true",
+			})
 			@components.Button("Add addon", components.ColorGray, false, nil)
 		</div>
 	</div>
