@@ -2,6 +2,7 @@ package customer
 
 import (
 "github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
 )
 
 templ Show() {
@@ -30,7 +31,7 @@ templ ShowHeader() {
 			<option>Non-Subscribers</option>
 			<option>Invoiced</option>
 		</select>
-		<button class="btn bg-secondarygray border rounded border-gray text-sm">Edit</button>
+		@components.Button("Edit", components.ColorGray, false, templ.Attributes{"data-target-modal": "create-product-modal"})
 	</div>
 </div>
 <div class="text-sm font-semibold text-center border-b  border-secondarygray">

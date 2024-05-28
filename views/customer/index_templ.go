@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/abdoroot/subscription/views/components"
 	"github.com/abdoroot/subscription/views/layouts"
 )
 
@@ -59,7 +60,20 @@ func Header() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none\"><select class=\"bg-white p-2 rounded\"><option>All</option> <option>InActive</option> <option>Non-Subscribers</option> <option>Invoiced</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\"><button hx-get=\"/customer/create\" hx-target=\"#main_content\" hx-indicator=\"#spinner\" hx-push-url=\"true\" class=\"flex items-center gap-2 text-sm bg-secondary rounded bg-primary px-2.5 py-1.5 text-white\"><svg class=\"fill-current w-3 h-3\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z\" fill=\"\"></path></svg> New</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none\"><select class=\"bg-white p-2 rounded\"><option>All</option> <option>InActive</option> <option>Non-Subscribers</option> <option>Invoiced</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("New", components.ColorGreen, true, templ.Attributes{
+			"hx-get":       "/customer/create",
+			"hx-target":    "#main_content",
+			"hx-indicator": "#spinner",
+			"hx-push-url":  "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

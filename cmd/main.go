@@ -128,12 +128,6 @@ func main() {
 			}
 			return util.RenderHtml(c, subitem.FullTempl())
 		})
-		si.Get("/create", func(c *fiber.Ctx) error {
-			if IsHXRequest(c) {
-				return util.RenderHtml(c, subitem.Create())
-			}
-			return util.RenderHtml(c, subitem.FullCreate())
-		})
 	}
 
 	//kill server signal

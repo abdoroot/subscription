@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/abdoroot/subscription/views/components"
 	"github.com/abdoroot/subscription/views/layouts"
 )
 
@@ -126,7 +127,19 @@ func CreateFooter() templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"fixed bottom-0 px-3 righ-0 w-full h-12 bg-white shadow-md flex items-center text-sm border-t border-gray\"><button class=\" bg-secondary rounded  px-2.5 py-1.5 text-white\">Save</button> <button class=\"bg-secondarygray rounded border border-gray px-2.5 py-1.5 ml-2\">Cancel</button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"fixed bottom-0 px-3 w-full h-12 bg-white shadow-md flex items-center text-sm border-t border-gray\"><div class=\"flex space-x-2\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("Save", components.ColorGreen, false, nil).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("Cancel", components.ColorGray, false, nil).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

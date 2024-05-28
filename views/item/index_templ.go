@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/abdoroot/subscription/views/components"
 	"github.com/abdoroot/subscription/views/layouts"
 )
 
@@ -35,7 +36,7 @@ func Index() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1\"><div class=\"max-w-full overflow-x-auto\"><div class=\"flex flex-col text-sm\"><div class=\"liketbl-header border-gray\"><div class=\"basis-1/4\">Name</div><div class=\"basis-1/4\">SKU</div><div class=\"basis-1/4\">Description</div><div class=\"basis-1/4\">Rate</div></div><div class=\"liketbl-item border-gray\" hx-get=\"/item/1\" hx-push-url=\"true\" hx-target=\"#main_content\"><div class=\"basis-1/4 flex items-center space-x-10\"><svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" x=\"0\" y=\"0\" viewBox=\"0 0 512 512\" xml:space=\"preserve\" class=\"w-8 fill-current mr-1\"><path d=\"M64 439.1V388c0-3.2 1-6.3 2.7-9l56.2-83.2c3.1-4.6 9.3-5.8 13.8-2.7l80.9 53.9c4 2.6 9.2 2.1 12.6-1.2l115.1-115.1c3.9-3.9 10.2-3.9 14.1 0l83.8 83.7c3 3 4.8 7.1 4.8 11.3v113.4c0 4.4-3.8 8-8.2 8H72c-4.4 0-8-3.6-8-8z\"></path><circle cx=\"208\" cy=\"239.1\" r=\"48\"></circle><path d=\"M0 159.1v320.5c0 17.7 14.3 32 32 32l448-.4c17.7 0 32-14.3 32-32V159.1c0-17.7-14.3-32-32-32H32c-17.7 0-32 14.3-32 32zm464 320H48c-8.8 0-16-7.2-16-16v-288c0-8.8 7.2-16 16-16h416c8.8 0 16 7.2 16 16v288c0 8.8-7.2 16-16 16z\"></path></svg> item 1</div><div class=\"basis-1/4\">9658</div><div class=\"basis-1/4\">...</div><div class=\"basis-1/4\">Aed9.82</div></div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1\"><div class=\"max-w-full overflow-x-auto\"><div class=\"flex flex-col\"><div class=\"liketbl-header border-gray\"><div class=\"basis-1/4\">Name</div><div class=\"basis-1/4\">SKU</div><div class=\"basis-1/4\">Description</div><div class=\"basis-1/4\">Rate</div></div><div class=\"liketbl-item border-gray\" hx-get=\"/item/1\" hx-push-url=\"true\" hx-target=\"#main_content\"><div class=\"basis-1/4 flex items-center space-x-1\"><svg class=\"w-10 h-8 text-red-500 fill-current\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z\" fill=\"#242424\"></path> <path d=\"M9 10.75C7.48 10.75 6.25 9.52 6.25 8C6.25 6.48 7.48 5.25 9 5.25C10.52 5.25 11.75 6.48 11.75 8C11.75 9.52 10.52 10.75 9 10.75ZM9 6.75C8.31 6.75 7.75 7.31 7.75 8C7.75 8.69 8.31 9.25 9 9.25C9.69 9.25 10.25 8.69 10.25 8C10.25 7.31 9.69 6.75 9 6.75Z\" fill=\"#242424\"></path> <path d=\"M2.66999 19.7001C2.42999 19.7001 2.18999 19.5801 2.04999 19.3701C1.81999 19.0301 1.90999 18.5601 2.25999 18.3301L7.18999 15.0201C8.26999 14.2901 9.75999 14.3801 10.74 15.2101L11.07 15.5001C11.57 15.9301 12.42 15.9301 12.91 15.5001L17.07 11.9301C18.13 11.0201 19.8 11.0201 20.87 11.9301L22.5 13.3301C22.81 13.6001 22.85 14.0701 22.58 14.3901C22.31 14.7001 21.84 14.7401 21.52 14.4701L19.89 13.0701C19.39 12.6401 18.54 12.6401 18.04 13.0701L13.88 16.6401C12.82 17.5501 11.15 17.5501 10.08 16.6401L9.74999 16.3501C9.28999 15.9601 8.52999 15.9201 8.01999 16.2701L3.08999 19.5801C2.95999 19.6601 2.80999 19.7001 2.66999 19.7001Z\" fill=\"#242424\"></path></svg> <span>item 1</span></div><div class=\"basis-1/4\">9658</div><div class=\"basis-1/4\">...</div><div class=\"basis-1/4\">Aed9.82</div></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -59,7 +60,20 @@ func Header() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none\"><select class=\"bg-white p-2 rounded\"><option>All</option> <option>Active</option> <option>InActive</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\"><button hx-get=\"/item/create\" hx-target=\"#main_content\" hx-indicator=\"#spinner\" hx-push-url=\"true\" class=\"flex items-center gap-2 text-sm bg-secondary rounded bg-primary px-2.5 py-1.5 text-white\"><svg class=\"fill-current w-3 h-3\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z\" fill=\"\"></path></svg> New</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none\"><select class=\"bg-white p-2 rounded\"><option>All</option> <option>Active</option> <option>InActive</option></select></div><div class=\"grow h-14\"></div><div class=\"flex-none\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("New", components.ColorGreen, true, templ.Attributes{
+			"hx-get":       "/item/create",
+			"hx-target":    "#main_content",
+			"hx-indicator": "#spinner",
+			"hx-push-url":  "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/abdoroot/subscription/views/components"
 	"github.com/abdoroot/subscription/views/layouts"
 )
 
@@ -98,7 +99,15 @@ func ShowHeader() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none text-xl\">Ahmed Mohamed Saeed</div><div class=\"grow h-14\"></div><div class=\"flex-none flex space-x-2\"><select class=\"flex items-center gap-2 text-sm bg-secondary rounded bg-primary text-center px-2.5 py-1.5 text-white\"><option>New Transaction</option> <option>All</option> <option>InActive</option> <option>Non-Subscribers</option> <option>Invoiced</option></select> <button class=\"btn bg-secondarygray border rounded border-gray text-sm\">Edit</button></div></div><div class=\"text-sm font-semibold text-center border-b  border-secondarygray\"><ul class=\"flex flex-wrap tabs\"><li><a class=\"inline-block py-4 active hover:cursor-pointer\" hx-get=\"/customer/1/overview\" hx-target=\"#tabscontent\">Overview</a></li><li><a class=\"inline-block p-4 hover:cursor-pointer\" hx-get=\"/customer/1/transaction\" hx-target=\"#tabscontent\">Transactions</a></li><li><a class=\"inline-block p-4  hover:cursor-pointer\" hx-get=\"/customer/1/mail\" hx-target=\"#tabscontent\">Mails</a></li><li class=\"me-3\"><a class=\"inline-block p-4\" hx-get=\"/customer/1/statement\" hx-target=\"#tabscontent\">Statement</a></li></ul></div><div class=\"py-4 tabs\" id=\"tabscontent\" hx-target=\"#tabscontent\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex items-center\"><div class=\"flex-none text-xl\">Ahmed Mohamed Saeed</div><div class=\"grow h-14\"></div><div class=\"flex-none flex space-x-2\"><select class=\"flex items-center gap-2 text-sm bg-secondary rounded bg-primary text-center px-2.5 py-1.5 text-white\"><option>New Transaction</option> <option>All</option> <option>InActive</option> <option>Non-Subscribers</option> <option>Invoiced</option></select>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("Edit", components.ColorGray, false, templ.Attributes{"data-target-modal": "create-product-modal"}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div class=\"text-sm font-semibold text-center border-b  border-secondarygray\"><ul class=\"flex flex-wrap tabs\"><li><a class=\"inline-block py-4 active hover:cursor-pointer\" hx-get=\"/customer/1/overview\" hx-target=\"#tabscontent\">Overview</a></li><li><a class=\"inline-block p-4 hover:cursor-pointer\" hx-get=\"/customer/1/transaction\" hx-target=\"#tabscontent\">Transactions</a></li><li><a class=\"inline-block p-4  hover:cursor-pointer\" hx-get=\"/customer/1/mail\" hx-target=\"#tabscontent\">Mails</a></li><li class=\"me-3\"><a class=\"inline-block p-4\" hx-get=\"/customer/1/statement\" hx-target=\"#tabscontent\">Statement</a></li></ul></div><div class=\"py-4 tabs\" id=\"tabscontent\" hx-target=\"#tabscontent\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -161,7 +170,7 @@ func TransactionTab(r string) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(r)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 173, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 174, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -198,7 +207,7 @@ func MailTab(r string) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(r)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 177, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 178, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -235,7 +244,7 @@ func StatementTab(r string) templ.Component {
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(r)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 181, Col: 21}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/customer/show.templ`, Line: 182, Col: 21}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
