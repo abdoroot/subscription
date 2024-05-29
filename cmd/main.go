@@ -129,12 +129,18 @@ func main() {
 			return util.RenderHtml(c, subitem.FullTempl())
 		})
 
-		//Subscriptions items
 		si.Get("/plan/create", func(c *fiber.Ctx) error {
 			if IsHXRequest(c) {
 				return util.RenderHtml(c, subitem.CreatePlan())
 			}
 			return util.RenderHtml(c, subitem.FullCreatePlan())
+		})
+
+		si.Get("/addon/create", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, subitem.CreateAddon())
+			}
+			return util.RenderHtml(c, subitem.FullCreateAddon())
 		})
 	}
 

@@ -1,0 +1,190 @@
+package subscriptionitem
+import (
+"github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
+)
+templ CreateAddon(){
+<div id="page" class="px-3 py-2">
+    @CreateAddonHeader()
+    <div class="flex flex-col text-sm pb-5">
+        <div class="flex pt-6 items-center">
+            <div class="w-2/12 text-red-500">Addon Name*</div>
+            <div class="w-4/12 flex">
+                <input type="text" name=""
+                    class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+            </div>
+        </div>
+        <div class="flex pt-4 items-center">
+            <div class="w-2/12 text-red-500">Addon Code*</div>
+            <div class="w-4/12 flex">
+                <input type="text" name=""
+                    class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+            </div>
+            <div class="w-6/12 text-muted px-4">A unique code of your choice which lets you identify this addon.</div>
+        </div>
+
+        <div class="flex pt-4 items-center">
+            <div class="w-2/12 text-red-500">Type*</div>
+            <div class="w-4/12 flex">
+                <div class="flex space-x-2">
+                    <div class="flex items-center">
+                        <input checked type="radio" value="business" name="plan_type"
+                            class="w-4 h-4 focus:bg-secondaryblue focus:ring-3" />
+                        <label class="ms-2">Goods</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" value="individual" name="plan_type"
+                            class="w-4 h-4 focus:bg-secondaryblue focus:ring-2" />
+                        <label class="ms-2">Service</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex pt-4 items-center">
+            <div class="w-2/12">Addon Description</div>
+            <div class="w-4/12 flex">
+                <textarea type="text" name=""
+                    class="w-full rounded border border:secondarygray py-4 px-2 focus:border-secondaryblue"></textarea>
+            </div>
+        </div>
+
+        <hr class="h-auto my-8 w-full border-b border-secondarygraydarker" />
+
+        <div class="flex uppercase text-base font-medium text-muted">
+            <span>PRICING DETAILS</span>
+        </div>
+
+        <div class="flex pt-6 items-center">
+            <div class="w-2/12">Pricing Model</div>
+            <div class="w-4/12 flex">
+                <select
+                    class="w-full bg-white rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+                    data-twe-select-filter="true">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex pt-4 items-center">
+            <div class="w-2/12  text-red-500">Price*</div>
+            <div class="w-4/12 flex items-center">
+                <div
+                    class="bg-secondarygraydarker border-r border-t border-b border:secondarygraydarker px-3 py-1.5 rounded-l">
+                    AED</div>
+                <input type="text"
+                    class="py-1.5 px-2 w-full rounded-r border-r border-t border-b border:secondarygray  focus:border-secondaryblue" />
+            </div>
+            <div class="w-6/12 text-muted px-4">/unit/month</div>
+        </div>
+
+        <div class="flex pt-6 items-center">
+            <div class="w-2/12 text-red-500">Unit name*</div>
+            <div class="w-4/12 flex">
+                <select
+                    class="w-full bg-white rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+                    data-twe-select-filter="true">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+            </div>
+            <div class="w-6/12 text-muted px-4">A name of your choice to refer to one unit of the addon. Eg: Stamp is a
+                unit for snail mail add-on.</div>
+        </div>
+
+        <hr class="h-auto my-8 w-full border-b border-secondarygraydarker" />
+
+        <div class="flex uppercase text-base font-medium text-muted">
+            <span>BILLING PREFERENCES</span>
+        </div>
+
+        <div class="flex pt-6 items-center">
+            <div class="w-2/12  text-red-500">Addon Type*</div>
+            <div class="w-4/12 flex">
+                <div class="flex space-x-2">
+                    <div class="flex items-center">
+                        <input checked type="radio" value="business" name="addon_type"
+                            class="w-4 h-4 focus:bg-secondaryblue focus:ring-3" />
+                        <label class="ms-2">One-time</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" value="individual" name="addon_type"
+                            class="w-4 h-4 focus:bg-secondaryblue focus:ring-2" />
+                        <label class="ms-2">Recurring</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex pt-4">
+            <div class="w-2/12  text-red-500">Pricing Interval*</div>
+            <div class="w-4/12 flex items-center space-x-2">
+
+                <select
+                    class="w-full bg-white rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+                    data-twe-select-filter="true">
+                    <option value="1">Week(s)</option>
+                    <option value="1" selected>Month(s)</option>
+                    <option value="2">Year 2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex pt-4">
+            <div class="w-2/12">
+                <span>Associated Plans*</span>
+            </div>
+            <div class="w-4/12 flex">
+                <div class="flex flex-col space-y-2">
+                    <div class="flex">
+                        <input checked type="checkbox" value="" name=""
+                            class="w-4 h-4 focus:bg-secondaryblue focus:ring-3" />
+                        <label class="ms-2">All Plans</label>
+                    </div>
+                    <div id="other_plans mt-6">
+                        <div class="flex ">
+                            <input checked type="checkbox" value="" name=""
+                                class="w-4 h-4 focus:bg-secondaryblue focus:ring-3" />
+                            <label class="ms-2">monthly Plan</label>
+                        </div>
+                        <div class="flex">
+                            <input checked type="checkbox" value="" name=""
+                                class="w-4 h-4 focus:bg-secondaryblue focus:ring-2" />
+                            <label class="ms-2">Yearly plan</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="h-auto my-8 w-full border-b border-secondarygraydarker" />
+
+        <div class="flex pt-4 items-center">
+            <div class="w-2/12">
+
+            </div>
+            <div class="w-4/12 flex space-x-2">
+                @components.Button("Save", components.ColorGreen, false, nil)
+                @components.Button("Cancel", components.ColorGray, false, nil)
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+templ CreateAddonHeader(){
+<div class="border-b border:secondarygray py-2">
+    <div class="text-2xl">
+        Add Addon
+    </div>
+</div>
+}
+
+
+templ FullCreateAddon(){
+@layouts.AdminApp() {
+@CreateAddon()
+}
+}
