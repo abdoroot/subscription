@@ -1,0 +1,37 @@
+package invoice
+
+import (
+"github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
+)
+
+templ Create(){
+<div id="page" class="px-3 py-2">
+    @CreateHeader()
+    <div class="flex text-sm bg-secondarygray">
+        <div class="flex flex-col px-3 pb-6  w-8/12">
+            <div class="flex pt-4 items-center">
+                <div class="w-4/12 text-red-500">Customer Name*</div>
+                <div class="w-6/12 flex">
+                    @components.CustomerSearchInput()
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+}
+
+templ FullCreate(){
+@layouts.AdminApp() {
+@Create()
+}
+}
+
+templ CreateHeader(){
+<div class="border-b border:secondarygray py-2 px-3">
+    <div class="text-2xl">
+        New Invoice
+    </div>
+</div>
+}

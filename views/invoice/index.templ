@@ -1,0 +1,65 @@
+package invoice
+
+import (
+"github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
+)
+
+templ Index() {
+<div id="page" class="px-3 py-2">
+@Header()
+<div class="rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1">
+	<div class="max-w-full overflow-x-auto">
+		<div class="flex flex-col text-sm">
+			<div class="liketbl-header border-gray text-xs flex items-center">
+				<div class="flex-1 p-2">Date</div>
+				<div class="flex-1 p-2">Invoice#</div>
+				<div class="flex-1 p-2">Customer Name</div>
+				<div class="flex-1 p-2">Email</div>
+				<div class="flex-1 p-2">Status</div>
+				<div class="flex-1 p-2">Due Date</div>
+				<div class="flex-1 p-2">Amount</div>
+				<div class="flex-1 p-2">Balance Due</div>
+			</div>
+			<div class="liketbl-item border-gray flex items-center" hx-get="/item/1" hx-push-url="true" hx-target="#main_content">
+				<div class="flex-1 px-1">08 May 2024</div>
+				<div class="flex-1 px-1 text-secondaryblue font-bold">inv-00004</div>
+				<div class="flex-1 px-1">Abdelhadi Mohammed</div>
+				<div class="flex-1 px-1">abd.200930@gmail.com</div>
+				<div class="flex-1 px-1 text-secondary font-bold">paid</div>
+                <div class="flex-1 px-1">08 May 2024</div>
+                <div class="flex-1 px-1">AED500</div>
+				<div class="flex-1 px-1">AED0</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+}
+
+templ Header() {
+<div class="flex items-center">
+	<div class="flex-none">
+		<select class="bg-white p-2 rounded">
+			<option>All</option>
+			<option>Active</option>
+			<option>InActive</option>
+		</select>
+	</div>
+	<div class="grow h-14"></div>
+	<div class="flex-none">
+		@components.Button("New", components.ColorGreen, true, templ.Attributes{
+			"hx-get": "/invoice/create",
+			"hx-target": "#main_content",
+			"hx-indicator": "#spinner",
+			"hx-push-url": "true",
+		})
+	</div>
+</div>
+}
+
+templ FullTempl() {
+@layouts.AdminApp() {
+@Index()
+}
+}

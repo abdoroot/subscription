@@ -13,6 +13,7 @@ import (
 	"github.com/abdoroot/subscription/views/customer"
 	"github.com/abdoroot/subscription/views/home"
 	"github.com/abdoroot/subscription/views/item"
+	"github.com/abdoroot/subscription/views/invoice"
 	subitem "github.com/abdoroot/subscription/views/subscriptionitem"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
@@ -141,6 +142,26 @@ func main() {
 				return util.RenderHtml(c, subitem.CreateAddon())
 			}
 			return util.RenderHtml(c, subitem.FullCreateAddon())
+		})
+
+		//todo: create copoun view
+	}
+
+	inv := router.Group("invoice")
+	{
+		//invoices
+		inv.Get("/", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, invoice.Index())
+			}
+			return util.RenderHtml(c, invoice.FullTempl())
+		})
+
+		inv.Get("/create", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, invoice.Create())
+			}
+			return util.RenderHtml(c, invoice.FullCreate())
 		})
 	}
 
