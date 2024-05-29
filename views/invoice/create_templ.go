@@ -36,7 +36,7 @@ func Create() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex text-sm bg-secondarygray\"><div class=\"flex flex-col px-3 pb-6  w-8/12\"><div class=\"flex pt-4 items-center\"><div class=\"w-4/12 text-red-500\">Customer Name*</div><div class=\"w-6/12 flex\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col text-sm\"><div class=\"px-2.5 pb-6 w-full bg-secondarygray\"><div class=\"flex pt-4 items-center\"><div class=\"w-2/12 text-red-500\">Customer Name*</div><div class=\"w-5/12 flex\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -44,7 +44,20 @@ func Create() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div><div class=\"flex flex-col px-3 w-8/12\"><div class=\"flex pt-4 items-center\"><div class=\"w-3/12 text-red-500\">Invoice#*</div><div class=\"w-4/12 flex\"><input type=\"text\" name=\"\" value=\"INV-000004\" class=\"w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue\"></div></div></div><div class=\"flex flex-col px-3 w-8/12\"><div class=\"flex pt-4 items-center\"><div class=\"w-3/12\">Order Number</div><div class=\"w-4/12 flex\"><input type=\"text\" name=\"\" value=\"\" class=\"w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue\"></div></div></div><div class=\"flex flex-col px-3 w-8/12\"><div class=\"flex pt-4 items-center\"><div class=\"w-3/12 text-red-500\">Invoice Date*</div><div class=\"w-4/12 flex\"><input type=\"date\" name=\"\" class=\"w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue\"></div></div></div><div class=\"flex flex-col px-3 w-8/12\"><div class=\"flex pt-4 items-center\"><div class=\"w-3/12 text-red-500\">Due Date*</div><div class=\"w-4/12 flex\"><input type=\"date\" name=\"\" class=\"w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue\"></div></div></div><hr class=\"h-auto my-8 w-full border-b border-secondarygraydarker\"><div><div class=\"bg-secondarygray border-t border-b border-secondarygraydarker p-4\"><span class=\"font-semibold\">Item Table</span></div><div class=\"px-4 py-2\"><table class=\"text-xs text-right\" id=\"invoice_items\"><thead><tr><th class=\"p-2 text-left border-l-0\">ITEM DETAILS</th><th class=\"p-2\">QUANTITY</th><th class=\"p-2\">RATE</th><th class=\"p-2\">DISCOUNT</th><th class=\"p-2 border-r-0\">AMOUNT</th></tr></thead> <tbody class=\"text-base\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.InvoiceTableRow(components.InvoiceTableRowCfg{
+			Qty:      1,
+			Rate:     0,
+			Discount: 0.00,
+			Amount:   0.00,
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</tbody></table></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

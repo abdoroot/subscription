@@ -1,0 +1,38 @@
+package components
+
+import "fmt"
+
+type InvoiceTableRowCfg struct {
+Qty int
+Rate float64
+Discount float64
+Amount float64
+}
+
+templ InvoiceTableRow(cfg InvoiceTableRowCfg) {
+<tr>
+    <td class="text-left w-6/12">
+        <textarea placeholder="type or click to select an item" name="item_details"
+            class="w-full rounded border-0 py-1.5 px-2 focus:border-secondaryblue"></textarea>
+    </td>
+    <td>
+        <input type="number" name="quantity" value={ fmt.Sprintf("%v",cfg.Qty) } min="0"
+            class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" />
+    </td>
+    <td>
+        <input type="number" name="rate" value={ fmt.Sprintf("%v",cfg.Rate) } min="0" step="0.01"
+            class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" />
+    </td>
+    <td>
+        <div class="flex items-center">
+            <input type="number" name="discount_value" value={ fmt.Sprintf("%v",cfg.Discount) } min="0" step="0.01"
+                class="rounded border-0 py-2 px-3 text-right focus:border-secondaryblue" />
+            <select class="bg-secondarygray rounded border border-secondarygraydarker p-2" name="discount_type">
+                <option value="%">%</option>
+                <option value="AED">AED</option>
+            </select>
+        </div>
+    </td>
+    <td class="p-1.5 font-semibold">{ fmt.Sprintf("%v",cfg.Amount) }</td>
+</tr>
+}

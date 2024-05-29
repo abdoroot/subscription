@@ -1,37 +1,113 @@
 package invoice
 
 import (
-"github.com/abdoroot/subscription/views/layouts"
-"github.com/abdoroot/subscription/views/components"
+	"github.com/abdoroot/subscription/views/layouts"
+	"github.com/abdoroot/subscription/views/components"
 )
 
-templ Create(){
-<div id="page" class="px-3 py-2">
-    @CreateHeader()
-    <div class="flex text-sm bg-secondarygray">
-        <div class="flex flex-col px-3 pb-6  w-8/12">
-            <div class="flex pt-4 items-center">
-                <div class="w-4/12 text-red-500">Customer Name*</div>
-                <div class="w-6/12 flex">
-                    @components.CustomerSearchInput()
-                </div>
-            </div>
-        </div>
-    </div>
-   
-</div>
+templ Create() {
+	<div id="page" class="px-3 py-2">
+		@CreateHeader()
+		<div class="flex flex-col text-sm">
+			<div class="px-2.5 pb-6 w-full bg-secondarygray">
+				<div class="flex pt-4 items-center">
+					<div class="w-2/12 text-red-500">Customer Name*</div>
+					<div class="w-5/12 flex">
+						@components.CustomerSearchInput()
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col px-3 w-8/12">
+				<div class="flex pt-4 items-center">
+					<div class="w-3/12 text-red-500">Invoice#*</div>
+					<div class="w-4/12 flex">
+						<input
+							type="text"
+							name=""
+							value="INV-000004"
+							class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col px-3 w-8/12">
+				<div class="flex pt-4 items-center">
+					<div class="w-3/12">Order Number</div>
+					<div class="w-4/12 flex">
+						<input
+							type="text"
+							name=""
+							value=""
+							class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col px-3 w-8/12">
+				<div class="flex pt-4 items-center">
+					<div class="w-3/12 text-red-500">Invoice Date*</div>
+					<div class="w-4/12 flex">
+						<input
+							type="date"
+							name=""
+							class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col px-3 w-8/12">
+				<div class="flex pt-4 items-center">
+					<div class="w-3/12 text-red-500">Due Date*</div>
+					<div class="w-4/12 flex">
+						<input
+							type="date"
+							name=""
+							class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue"
+						/>
+					</div>
+				</div>
+			</div>
+			<hr class="h-auto my-8 w-full border-b border-secondarygraydarker"/>
+			<div>
+				<div class="bg-secondarygray border-t border-b border-secondarygraydarker p-4">
+					<span class="font-semibold">Item Table</span>
+				</div>
+				<div class="px-4 py-2">
+					<table class="text-xs text-right" id="invoice_items">
+						<thead>
+							<tr>
+								<th class="p-2 text-left border-l-0">ITEM DETAILS</th>
+								<th class="p-2">QUANTITY</th>
+								<th class="p-2">RATE</th>
+								<th class="p-2">DISCOUNT</th>
+								<th class="p-2 border-r-0">AMOUNT</th>
+							</tr>
+						</thead>
+						<tbody class="text-base">
+							@components.InvoiceTableRow(components.InvoiceTableRowCfg{
+								Qty:      1,
+								Rate:     0,
+								Discount: 0.00,
+								Amount:   0.00,
+							})
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
-templ FullCreate(){
-@layouts.AdminApp() {
-@Create()
-}
+templ FullCreate() {
+	@layouts.AdminApp() {
+		@Create()
+	}
 }
 
-templ CreateHeader(){
-<div class="border-b border:secondarygray py-2 px-3">
-    <div class="text-2xl">
-        New Invoice
-    </div>
-</div>
+templ CreateHeader() {
+	<div class="border-b border:secondarygray py-2 px-3">
+		<div class="text-2xl">
+			New Invoice
+		</div>
+	</div>
 }
