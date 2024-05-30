@@ -150,6 +150,7 @@ func main() {
 	inv := router.Group("invoice")
 	{
 		//invoices
+		//todo: show
 		inv.Get("/", func(c *fiber.Ctx) error {
 			if IsHXRequest(c) {
 				return util.RenderHtml(c, invoice.Index())
