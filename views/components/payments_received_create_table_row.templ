@@ -2,12 +2,12 @@ package components
 
 import "fmt"
 
-type PaymentsReceivedTableRowCfg struct {
+type PaymentsReceivedCreateTableRowCfg struct {
 InvoiceNumber,Date,DueDate string
 Amount,DueAmount float32
 }
 
-templ PaymentsReceivedTableRow(cfg PaymentsReceivedTableRowCfg) {
+templ PaymentsReceivedCreateTableRow(cfg PaymentsReceivedCreateTableRowCfg) {
 <tr class="border-b border-secondarygray">
     <td class="text-left flex flex-col border-0 w-auto py-2">
         <span>{cfg.Date}</span>

@@ -51,9 +51,9 @@ func main() {
 		c.Get("/", func(c *fiber.Ctx) error {
 			//for test perpose
 			if IsHXRequest(c) {
-				return util.RenderHtml(c, customer.Customer())
+				return util.RenderHtml(c, customer.Index())
 			}
-			return util.RenderHtml(c, customer.FullCustomerTempl())
+			return util.RenderHtml(c, customer.FullIndexTempl())
 		})
 
 		c.Get("/:id<int>", func(c *fiber.Ctx) error {
@@ -173,9 +173,9 @@ func main() {
 
 		paymentsreceived.Get("/", func(c *fiber.Ctx) error {
 			if IsHXRequest(c) {
-				return util.RenderHtml(c, psview.Create())
+				return util.RenderHtml(c, psview.Index())
 			}
-			return util.RenderHtml(c, psview.FullCreate())
+			return util.RenderHtml(c, psview.FullIndex())
 		})
 
 		paymentsreceived.Get("/create", func(c *fiber.Ctx) error {

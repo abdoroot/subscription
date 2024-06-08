@@ -1,0 +1,21 @@
+package components
+
+import "fmt"
+
+type PaymentsReceivedIndexTableRowCfg struct {
+    Date,PaymentId,Reference,CustomerName,InvoiceId,Mode string
+Amount float32
+}
+
+templ PaymentsReceivedIndexTableRow(cfg PaymentsReceivedIndexTableRowCfg) {
+<tr class="border-b border-secondarygraydarker text-sm">
+    <td class="text-left flex flex-col border-0 w-auto py-6">{cfg.Date}</td>
+    <td class="border-0 py-6">{cfg.PaymentId}</td>
+    <td class="border-0 py-6">{cfg.Reference}</td>
+    <td class="border-0 py-6">{cfg.CustomerName}</td>
+    <td class="border-0 py-6">{cfg.InvoiceId}</td>
+    <td class="border-0 py-6">{cfg.Mode}</td>
+    <td class="border-0 py-6">{fmt.Sprintf("%.2f", cfg.Amount)}</td>
+</tr>
+}
+

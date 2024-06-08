@@ -48,7 +48,7 @@ func Create() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.PaymentsReceivedTableRow(components.PaymentsReceivedTableRowCfg{
+		templ_7745c5c3_Err = components.PaymentsReceivedCreateTableRow(components.PaymentsReceivedCreateTableRowCfg{
 			InvoiceNumber: "inv-69985",
 			Date:          "20 May 2024",
 			DueDate:       "25 May 2024",
@@ -58,7 +58,7 @@ func Create() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.PaymentsReceivedTableRow(components.PaymentsReceivedTableRowCfg{
+		templ_7745c5c3_Err = components.PaymentsReceivedCreateTableRow(components.PaymentsReceivedCreateTableRowCfg{
 			InvoiceNumber: "inv-59874",
 			Date:          "21 May 2024",
 			DueDate:       "26 May 2024",

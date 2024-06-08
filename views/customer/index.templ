@@ -1,70 +1,71 @@
 package customer
 
 import (
-"github.com/abdoroot/subscription/views/layouts"
-"github.com/abdoroot/subscription/views/components"
+    "github.com/abdoroot/subscription/views/layouts"
+    "github.com/abdoroot/subscription/views/components"
 )
 
-templ Customer() {
-<div id="page" class="px-6 py-2">
-@Header()
-<div class="rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1">
-	<div class="max-w-full overflow-x-auto">
-		<div class="flex flex-col text-xs">
-			<div class="liketbl-header border-gray">
-				<div class="basis-1/5 ">Name</div>
-				<div class="basis-1/5 ">Company Name
-				</div>
-				<div class="basis-1/5">Email</div>
-				<div class="basis-1/5">Work Phone
-				</div>
-				<div class="basis-1/5">Receivables
-				</div>
-			</div>
-			<div class="liketbl-item border-gray" hx-get="/customer/1" hx-push-url="true" hx-target="#main_content">
-				<div class="basis-1/5">Ahmed</div>
-				<div class="basis-1/5">test Company</div>
-				<div class="basis-1/5">ahmedemail@gmail.com</div>
-				<div class="basis-1/5">0554241896</div>
-				<div class="basis-1/5">AED250</div>
-			</div>
-			<div class="liketbl-item border-gray" hx-get="/customer/1" hx-push-url="true" hx-target="#main_content">
-				<div class="basis-1/5">abdelhadi</div>
-				<div class="basis-1/5">dz llc</div>
-				<div class="basis-1/5">abd.200930@gmail.com</div>
-				<div class="basis-1/5">0554241896</div>
-				<div class="basis-1/5">AED0</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+templ Index() {
+    <div id="page" class="px-6">
+        @Header()
+        <div class="rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1">
+            <div class="max-w-full overflow-x-auto">
+                <table class="text-xs text-left w-full">
+                    <thead>
+                        <tr class="border-gray text-muted uppercase">
+                            <th class="border-x-0 py-2">Name</th>
+                            <th class="border-x-0 py-2">Company Name</th>
+                            <th class="border-x-0 py-2">Email</th>
+                            <th class="border-x-0 py-2">Work Phone</th>
+                            <th class="border-x-0 py-2">Receivables</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @components.CustomerIndexTableRow(components.CustomerIndexTableRowCfg{
+                            Name:        "Ahmed",
+                            CompanyName: "test Company",
+                            Email:       "ahmedemail@gmail.com",
+                            WorkPhone:   "0554241896",
+                            Receivables: "AED250",
+                        })
+                        @components.CustomerIndexTableRow(components.CustomerIndexTableRowCfg{
+                            Name:        "Abdelhadi",
+                            CompanyName: "dz llc",
+                            Email:       "abd.200930@gmail.com",
+                            WorkPhone:   "0554241896",
+                            Receivables: "AED0",
+                        })
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 }
 
 templ Header() {
-<div class="flex items-center">
-	<div class="flex-none">
-		<select class="bg-white p-2 rounded">
-			<option>All</option>
-			<option>InActive</option>
-			<option>Non-Subscribers</option>
-			<option>Invoiced</option>
-		</select>
-	</div>
-	<div class="grow h-14"></div>
-	<div class="flex-none">
-		@components.Button("New", components.ColorGreen, true, templ.Attributes{
-			"hx-get":"/customer/create",
-			"hx-target":"#main_content",
-			"hx-indicator":"#spinner",
-			"hx-push-url":"true",
-		})
-	</div>
-</div>
+    <div class="flex items-center">
+        <div class="flex-none">
+            <select class="bg-white p-2 rounded">
+                <option>All</option>
+                <option>InActive</option>
+                <option>Non-Subscribers</option>
+                <option>Invoiced</option>
+            </select>
+        </div>
+        <div class="grow h-14"></div>
+        <div class="flex-none">
+            @components.Button("New", components.ColorGreen, true, templ.Attributes{
+                "hx-get": "/customer/create",
+                "hx-target": "#main_content",
+                "hx-indicator": "#spinner",
+                "hx-push-url": "true",
+            })
+        </div>
+    </div>
 }
 
-templ FullCustomerTempl() {
-@layouts.AdminApp() {
-@Customer()
-}
+templ FullIndexTempl() {
+    @layouts.AdminApp() {
+        @Index()
+    }
 }

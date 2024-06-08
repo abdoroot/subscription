@@ -1,0 +1,78 @@
+package paymentsreceived
+
+import (
+"github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
+)
+
+templ Index(){
+    <div id="page" class="px-6 pb-20">
+        @IndexHeader()
+        <div class="w-full">
+			<div class="py-2">
+				<table class="text-xs text-left" id="invoice_items">
+					<thead>
+						<tr class="text-muted uppercase">
+							<th class="py-2 border-x-0">Date</th>
+							<th class="py-2 border-x-0">PAYMENT#</th>
+							<th class="py-2 border-x-0">REFERENCE NUMBER</th>
+							<th class="py-2 border-x-0">CUSTOMER NAME</th>
+							<th class="py-2 border-x-0">INVOICE#</th>
+							<th class="py-2 border-x-0">MODE</th>
+							<th class="py-2 border-x-0">Amount</th>
+						</tr>
+					</thead>
+					<tbody class="text-base">
+						@components.PaymentsReceivedIndexTableRow(components.PaymentsReceivedIndexTableRowCfg{
+                            Date:"08 May 2024",
+                            PaymentId:"1",
+                            Reference:"659",
+                            CustomerName:"Abdelhadi Mohamed",
+                            InvoiceId:"INV-9658",
+                            Mode:"CASH",
+                            Amount:7,
+                        })
+
+                        @components.PaymentsReceivedIndexTableRow(components.PaymentsReceivedIndexTableRowCfg{
+                            Date:"08 May 2024",
+                            PaymentId:"1",
+                            Reference:"659",
+                            CustomerName:"Abdelhadi Mohamed",
+                            InvoiceId:"INV-9658",
+                            Mode:"CASH",
+                            Amount:7,
+                        })
+					</tbody>
+				</table>
+			</div>
+          </div>
+     </div>
+}
+
+templ IndexHeader(){
+    <div class="flex items-center">
+        <div class="flex-none">
+            <select class="bg-white p-2 rounded">
+                <option>All</option>
+                <option>Active</option>
+                <option>InActive</option>
+            </select>
+        </div>
+        <div class="grow h-14"></div>
+        <div class="flex-none">
+            @components.Button("New", components.ColorGreen, true, templ.Attributes{
+                "hx-get": "/paymentsreceived/create",
+                "hx-target": "#main_content",
+                "hx-indicator": "#spinner",
+                "hx-push-url": "true",
+            })
+        </div>
+    </div>
+}
+
+
+templ FullIndex(){
+@layouts.AdminApp() {
+    @Index()
+}
+}

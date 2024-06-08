@@ -1,0 +1,15 @@
+package components
+
+type CustomerIndexTableRowCfg struct {
+    Name, CompanyName, Email, WorkPhone, Receivables string
+}
+
+templ CustomerIndexTableRow(cfg CustomerIndexTableRowCfg) {
+    <tr class="border-b border-gray-300 text-sm" hx-get="/customer/1" hx-push-url="true" hx-target="#main_content">
+        <td class="py-6 border-x-0">{cfg.Name}</td>
+        <td class="py-6 border-x-0">{cfg.CompanyName}</td>
+        <td class="py-6 border-x-0">{cfg.Email}</td>
+        <td class="py-6 border-x-0">{cfg.WorkPhone}</td>
+        <td class="py-6 border-x-0">{cfg.Receivables}</td>
+    </tr>
+}

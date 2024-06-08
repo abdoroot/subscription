@@ -15,7 +15,7 @@ import (
 	"github.com/abdoroot/subscription/views/layouts"
 )
 
-func Customer() templ.Component {
+func Index() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -28,7 +28,7 @@ func Customer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"page\" class=\"px-6 py-2\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"page\" class=\"px-6\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -36,7 +36,31 @@ func Customer() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1\"><div class=\"max-w-full overflow-x-auto\"><div class=\"flex flex-col text-xs\"><div class=\"liketbl-header border-gray\"><div class=\"basis-1/5 \">Name</div><div class=\"basis-1/5 \">Company Name</div><div class=\"basis-1/5\">Email</div><div class=\"basis-1/5\">Work Phone</div><div class=\"basis-1/5\">Receivables</div></div><div class=\"liketbl-item border-gray\" hx-get=\"/customer/1\" hx-push-url=\"true\" hx-target=\"#main_content\"><div class=\"basis-1/5\">Ahmed</div><div class=\"basis-1/5\">test Company</div><div class=\"basis-1/5\">ahmedemail@gmail.com</div><div class=\"basis-1/5\">0554241896</div><div class=\"basis-1/5\">AED250</div></div><div class=\"liketbl-item border-gray\" hx-get=\"/customer/1\" hx-push-url=\"true\" hx-target=\"#main_content\"><div class=\"basis-1/5\">abdelhadi</div><div class=\"basis-1/5\">dz llc</div><div class=\"basis-1/5\">abd.200930@gmail.com</div><div class=\"basis-1/5\">0554241896</div><div class=\"basis-1/5\">AED0</div></div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"rounded-sm bg-white pb-1 pt-2 shadow-default sm:px-7.5 xl:pb-1\"><div class=\"max-w-full overflow-x-auto\"><table class=\"text-xs text-left w-full\"><thead><tr class=\"border-gray text-muted uppercase\"><th class=\"border-x-0 py-2\">Name</th><th class=\"border-x-0 py-2\">Company Name</th><th class=\"border-x-0 py-2\">Email</th><th class=\"border-x-0 py-2\">Work Phone</th><th class=\"border-x-0 py-2\">Receivables</th></tr></thead> <tbody>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.CustomerIndexTableRow(components.CustomerIndexTableRowCfg{
+			Name:        "Ahmed",
+			CompanyName: "test Company",
+			Email:       "ahmedemail@gmail.com",
+			WorkPhone:   "0554241896",
+			Receivables: "AED250",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.CustomerIndexTableRow(components.CustomerIndexTableRowCfg{
+			Name:        "Abdelhadi",
+			CompanyName: "dz llc",
+			Email:       "abd.200930@gmail.com",
+			WorkPhone:   "0554241896",
+			Receivables: "AED0",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</tbody></table></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -84,7 +108,7 @@ func Header() templ.Component {
 	})
 }
 
-func FullCustomerTempl() templ.Component {
+func FullIndexTempl() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -103,7 +127,7 @@ func FullCustomerTempl() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			templ_7745c5c3_Err = Customer().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = Index().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

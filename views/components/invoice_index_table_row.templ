@@ -1,0 +1,19 @@
+package components
+
+type InvoiceIndexTableRowCfg struct {
+    Date, InvoiceNumber, CustomerName, Email, Status, DueDate, Amount, BalanceDue string
+}
+
+
+templ InvoiceIndexTableRow(cfg InvoiceIndexTableRowCfg) {
+    <tr class="border-b border-gray-300 items-center text-sm">
+        <td class="py-6 border-x-0">{cfg.Date}</td>
+        <td class="py-6 border-x-0 text-secondaryblue font-bold">{cfg.InvoiceNumber}</td>
+        <td class="py-6 border-x-0">{cfg.CustomerName}</td>
+        <td class="py-6 border-x-0">{cfg.Email}</td>
+        <td class="py-6 border-x-0 text-secondary font-bold">{cfg.Status}</td>
+        <td class="py-6 border-x-0">{cfg.DueDate}</td>
+        <td class="py-6 border-x-0">{cfg.Amount}</td>
+        <td class="py-6 border-x-0">{cfg.BalanceDue}</td>
+    </tr>
+}
