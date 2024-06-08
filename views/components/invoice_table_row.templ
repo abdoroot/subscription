@@ -16,16 +16,16 @@ templ InvoiceTableRow(cfg InvoiceTableRowCfg) {
             class="w-full rounded border-0 py-1.5 px-2 focus:border-secondaryblue"></textarea>
     </td>
     <td>
-        <input type="number" name="quantity" value={ fmt.Sprintf("%v",cfg.Qty) } min="0"
+        <input type="number" name="quantity" value={ fmt.Sprint(cfg.Qty) } min="0"
             class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" />
     </td>
     <td>
-        <input type="number" name="rate" value={ fmt.Sprintf("%v",cfg.Rate) } min="0" step="0.01"
+        <input type="number" name="rate" value={ fmt.Sprint(cfg.Rate) } min="0" step="0.01"
             class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" />
     </td>
     <td>
         <div class="flex items-center">
-            <input type="number" name="discount_value" value={ fmt.Sprintf("%v",cfg.Discount) } min="0" step="0.01"
+            <input type="number" name="discount_value" value={ fmt.Sprint(cfg.Discount) } min="0" step="0.01"
                 class="rounded border-0 py-2 px-3 text-right focus:border-secondaryblue" />
             <select class="bg-secondarygray rounded border border-secondarygraydarker p-2" name="discount_type">
                 <option value="%">%</option>
@@ -34,7 +34,7 @@ templ InvoiceTableRow(cfg InvoiceTableRowCfg) {
         </div>
     </td>
     <td class="p-1.5 font-semibold relative">
-        <span>{ fmt.Sprintf("%v",cfg.Amount) }</span>
+        <span>{ fmt.Sprint(cfg.Amount) }</span>
         <div class="absolute -right-10 top-0 p-1.5">
             <button type="button"  class="removetr bg-transparent text-sm" data-modal-hide="popup-modal">
             <svg class="w-3 h-3 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

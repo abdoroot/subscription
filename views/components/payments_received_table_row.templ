@@ -1,0 +1,24 @@
+package components
+
+import "fmt"
+
+type PaymentsReceivedTableRowCfg struct {
+InvoiceNumber,Date,DueDate string
+Amount,DueAmount float32
+}
+
+templ PaymentsReceivedTableRow(cfg PaymentsReceivedTableRowCfg) {
+<tr class="border-b border-secondarygray">
+    <td class="text-left flex flex-col border-0 w-auto py-2">
+        <span>{cfg.Date}</span>
+        <span class="text-muted text-xs">Due Date {cfg.DueDate}</span>
+    </td>
+    <td class="border-0 py-2">{cfg.InvoiceNumber}</td>
+    <td class="border-0 py-2">{fmt.Sprint(cfg.Amount)}</td>
+    <td class="border-0 py-2">{fmt.Sprint(cfg.DueAmount)}</td>
+    <td class="border-0 py-2">
+        <input type="text" name="" value="0"
+                        class="text-right rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+    </td>
+</tr>
+}

@@ -12,8 +12,9 @@ import (
 	"github.com/abdoroot/subscription/util"
 	"github.com/abdoroot/subscription/views/customer"
 	"github.com/abdoroot/subscription/views/home"
-	"github.com/abdoroot/subscription/views/item"
 	"github.com/abdoroot/subscription/views/invoice"
+	"github.com/abdoroot/subscription/views/item"
+	psview "github.com/abdoroot/subscription/views/paymentsreceived"
 	subitem "github.com/abdoroot/subscription/views/subscriptionitem"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
@@ -163,6 +164,17 @@ func main() {
 				return util.RenderHtml(c, invoice.Create())
 			}
 			return util.RenderHtml(c, invoice.FullCreate())
+		})
+	}
+
+	paymentsreceived := router.Group("/paymentsreceived")
+	{
+		//paymentsreceived
+		paymentsreceived.Get("/create", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, psview.Create())
+			}
+			return util.RenderHtml(c, psview.FullCreate())
 		})
 	}
 
