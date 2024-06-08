@@ -10,8 +10,8 @@ templ Create(){
 <div id="page" class="py-2">
     @CreateHeader()
     <div class="flex text-sm bg-secondarygray">
-        <div class="flex flex-col px-3 pb-6  w-6/12">
-            <div class="flex pt-6 items-center">
+        <div class="flex flex-col px-6 pb-6 w-6/12">
+            <div class="flex  pt-6 items-center">
                 <div class="w-4/12">Type</div>
                 <div class="w-8/12">
                     <div class="flex space-x-2">
@@ -55,6 +55,7 @@ templ Create(){
                 </div>
             </div>
         </div>
+        
         <div class="flex items-center w-6/12">
             <label class="w-52 flex flex-col items-center px-6 py-6 bg-white text-blue rounded-md tracking-wide uppercase border border-dashed border-gray-600 hover:border-secondaryblue cursor-pointer">
                 <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -65,18 +66,18 @@ templ Create(){
             </label>
         </div>
     </div>
-    <div class="flex flex-col text-sm">
+    <div class="flex flex-col px-6 pb-6 w-6/12">
         <div class="flex pt-4 items-center">
-            <div class="w-2/12 px-3 text-red-500">Selling Price *</div>
-            <div class="w-2/12 px-1 flex items-center">
+            <div class="w-4/12 text-red-500">Selling Price *</div>
+            <div class="w-8/12 flex items-center">
                 <div class="bg-secondarygraydarker border-r border-t border-b border:secondarygraydarker px-3 py-1.5 rounded-l">AED</div>
-                <input type="text" class="py-1.5 px-2 w-full rounded-r border-r border-t border-b border:secondarygray  focus:border-secondaryblue" />
+                <input type="text" class="py-1.5 px-2 w-fullrounded-r border-r border-t border-b border:secondarygray  focus:border-secondaryblue" />
             </div>
         </div>
 
-        <div class="flex items-center pt-4">
-            <div class="w-2/12 px-3">Description</div>
-            <div class="w-3/12 px-1">
+        <div class="flex pt-4 items-center">
+            <div class="w-4/12">Description</div>
+            <div class="w-6/12 flex items-center">
                 <textarea type="text" name="" placeholder="Description"
                     class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" ></textarea>
             </div>
@@ -96,8 +97,8 @@ templ FullCreate(){
 }
 
 templ CreateHeader() {
-<div class="border-b border:secondarygray py-2 px-3">
-    <div class="text-2xl">
+<div class="border-b border:secondarygray pb-2 px-6">
+    <div class="text-2xl font-semibold">
         New Item
     </div>
 </div>

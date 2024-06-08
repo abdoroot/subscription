@@ -170,6 +170,14 @@ func main() {
 	paymentsreceived := router.Group("/paymentsreceived")
 	{
 		//paymentsreceived
+
+		paymentsreceived.Get("/", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, psview.Create())
+			}
+			return util.RenderHtml(c, psview.FullCreate())
+		})
+
 		paymentsreceived.Get("/create", func(c *fiber.Ctx) error {
 			if IsHXRequest(c) {
 				return util.RenderHtml(c, psview.Create())
