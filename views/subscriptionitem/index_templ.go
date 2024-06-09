@@ -84,7 +84,7 @@ func ItemDescHeader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.Button("Add plan", components.ColorGreen, false, templ.Attributes{
+		templ_7745c5c3_Err = components.Button("Add Plan", components.ColorGreen, false, templ.Attributes{
 			"hx-get":       "/subscription-item/plan/create",
 			"hx-target":    "#content-column",
 			"hx-indicator": "#spinner",
@@ -93,7 +93,7 @@ func ItemDescHeader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.Button("Add addon", components.ColorGray, false, templ.Attributes{
+		templ_7745c5c3_Err = components.Button("Add Addon", components.ColorGray, false, templ.Attributes{
 			"hx-get":       "/subscription-item/addon/create",
 			"hx-target":    "#content-column",
 			"hx-indicator": "#spinner",
@@ -102,7 +102,7 @@ func ItemDescHeader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"relative\"><button aria-controls=\"more_options\" data-collapse-toggle=\"more_options\" class=\"flex items-center gap-2 text-sm bg-secondarygray rounded border border-gray px-2.5 py-1.5\">More <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"flex-none fill-current w-1.5\"><path d=\"M481.6 74.4H30.4c-9.6 0-15.3 10.6-10 18.6l223.3 339.2c4.7 7.2 15.2 7.2 20 .1 39.5-58.8 184.2-274.2 227.8-339.2 5.4-7.9-.3-18.7-9.9-18.7z\"></path></svg></button><div id=\"more_options\" class=\"absolute bg-white w-40 right-0 top-10 flex flex-col  space-y-1 shadow-xl slide-up\"><div class=\"p-2\"><div class=\"hover:bg-secondaryblue hover:text-white p-1.5 hover:rounded\"><a hx-get=\"/subscription-item/copoun/create\" hx-target=\"#content-column\" hx-indicator=\"#spinner\" hx-push-url=\"true\" href=\"\">Add Coupon</a></div><div class=\"hover:bg-secondaryblue hover:text-white p-1.5 hover:rounded\"><a href=\"#\">Delete</a></div><div class=\"hover:bg-secondaryblue hover:text-white p-1.5 hover:rounded\"><a href=\"#\">Mark as Inactive</a></div></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -134,7 +134,7 @@ func ItemsHeader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- <button data-target-modal=\"create-product-modal\"\n\t\t\tclass=\"open-modal flex items-center gap-2 text-sm bg-secondary rounded px-2.5 py-1.5 text-white\">\n\t\t\t<svg class=\"fill-current w-3 h-3\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t\t\t<path\n\t\t\t\t\td=\"M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z\"\n\t\t\t\t\tfill=\"\"></path>\n\t\t\t</svg>\n\t\t\tNew\n\t\t</button> --></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

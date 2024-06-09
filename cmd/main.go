@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	"github.com/abdoroot/subscription/util"
+	copounview "github.com/abdoroot/subscription/views/copoun"
 	"github.com/abdoroot/subscription/views/customer"
 	"github.com/abdoroot/subscription/views/home"
 	"github.com/abdoroot/subscription/views/invoice"
@@ -46,6 +47,8 @@ func main() {
 		return util.RenderHtml(c, home.Index())
 	})
 
+	//todo datatepicker
+	//todo select search
 	c := router.Group("customer")
 	{
 		c.Get("/", func(c *fiber.Ctx) error {
@@ -146,6 +149,12 @@ func main() {
 		})
 
 		//todo: create copoun view
+		si.Get("/copoun/create", func(c *fiber.Ctx) error {
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, copounview.Create())
+			}
+			return util.RenderHtml(c, copounview.FullCreateTempl())
+		})
 	}
 
 	inv := router.Group("invoice")

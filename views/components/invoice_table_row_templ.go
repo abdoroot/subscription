@@ -71,14 +71,14 @@ func InvoiceTableRow(cfg InvoiceTableRowCfg) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" min=\"0\" step=\"0.01\" class=\"rounded border-0 py-2 px-3 text-right focus:border-secondaryblue\"> <select class=\"bg-secondarygray rounded border border-secondarygraydarker p-2\" name=\"discount_type\"><option value=\"%\">%</option> <option value=\"AED\">AED</option></select></div></td><td class=\"p-1.5 font-semibold relative\"><span>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" min=\"0\" step=\"0.01\" class=\"rounded-l-md border border-r-0 border-secondarygray py-1.5 px-2 text-right focus:border-secondaryblue\"> <select class=\"bg-secondarygraydarker rounded-r-md border-l-0 border border-secondarygray py-1.5 px-2 h-full\" name=\"discount_type\"><option value=\"%\">%</option> <option value=\"AED\">AED</option></select></div></td><td class=\"p-1.5 font-semibold relative\"><span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(cfg.Amount))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/invoice_table_row.templ`, Line: 37, Col: 38}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/invoice_table_row.templ`, Line: 38, Col: 38}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {

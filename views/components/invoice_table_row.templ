@@ -26,13 +26,14 @@ templ InvoiceTableRow(cfg InvoiceTableRowCfg) {
     <td>
         <div class="flex items-center">
             <input type="number" name="discount_value" value={ fmt.Sprint(cfg.Discount) } min="0" step="0.01"
-                class="rounded border-0 py-2 px-3 text-right focus:border-secondaryblue" />
-            <select class="bg-secondarygray rounded border border-secondarygraydarker p-2" name="discount_type">
+                class="rounded-l-md border border-r-0 border-secondarygray py-1.5 px-2 text-right focus:border-secondaryblue" />
+            <select class="bg-secondarygraydarker rounded-r-md border-l-0 border border-secondarygray py-1.5 px-2 h-full" name="discount_type">
                 <option value="%">%</option>
                 <option value="AED">AED</option>
             </select>
         </div>
     </td>
+         
     <td class="p-1.5 font-semibold relative">
         <span>{ fmt.Sprint(cfg.Amount) }</span>
         <div class="absolute -right-10 top-0 p-1.5">
