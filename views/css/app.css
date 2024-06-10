@@ -71,6 +71,18 @@ aside li:hover>a:nth-child(2) {
     }
 }
 
+
+/* hide input type number arrow in firfox  */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
 table {
     @apply w-full border-x-0 border border-secondarygraydarker;
 }

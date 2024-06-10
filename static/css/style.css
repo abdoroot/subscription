@@ -714,6 +714,10 @@ video {
   margin-bottom: 0.75rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
 .me-3 {
   margin-inline-end: 0.75rem;
 }
@@ -756,10 +760,6 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
 }
 
 .block {
@@ -1253,11 +1253,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-secondaryblue {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 157 255 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-60 {
   --tw-bg-opacity: 0.6;
 }
@@ -1644,6 +1639,18 @@ aside li:hover>a:nth-child(2) {
   cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(249 249 251 / var(--tw-bg-opacity));
+}
+
+/* hide input type number arrow in firfox  */
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
 }
 
 table {
