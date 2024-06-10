@@ -1,0 +1,170 @@
+package subscriptions
+
+import (
+"github.com/abdoroot/subscription/views/layouts"
+"github.com/abdoroot/subscription/views/components"
+)
+
+templ Create() {
+<div id="page" class="py-2 pb-20">
+	@CreateHeader()
+	<div class="flex flex-col text-sm">
+		<div class="px-6 pb-6 w-full bg-secondarygray">
+			<div class="flex pt-4 items-center">
+				<div class="w-2/12 text-red-500">Customer Name*</div>
+				<div class="w-5/12 flex">
+					@components.CustomerSearchInput()
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12 text-red-500">Select Product#*</div>
+				<div class="w-4/12 flex">
+					<select name="" class="w-full bg-white border rounded border:secondarygray py-1.5 px-2">
+						<option>Vpn Service</option>
+						<option>Silver</option>
+						<option>Milk</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="px-6 my-3 w-8/12 ">
+			<div class="flex uppercase text-base font-medium text-muted"><span>Plan</span></div>
+		</div>
+		<hr class="h-auto mx-6 mb-6 w-full border-b border-secondarygraydarker" />
+
+		<div class="w-11/12">
+			<div class="px-6">
+				<table class="text-xs text-right" id="invoice_items">
+					<thead>
+						<tr>
+							<th class="py-2 text-left border-l-0">PLAN NAME</th>
+							<th class="py-2 px-1">QUANTITY</th>
+							<th class="py-2 px-1">PRICE</th>
+							<th class="py-2 pr-2 px-1">AMOUNT</th>
+						</tr>
+					</thead>
+					<tbody class="text-base">
+						@components.SubscriptionCreatePlanTableRow(components.SubscriptionCreatePlanTableRowCfg{})
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="px-6 my-3 w-8/12 ">
+			<div class="flex uppercase text-base font-medium text-muted"><span>Coupon</span></div>
+		</div>
+		<hr class="h-auto mx-6 mb-3 w-full border-b border-secondarygraydarker" />
+
+		<div class="px-6 w-8/12">
+			@components.Button("Apply Coupon", components.ColorBlue, true, nil)
+		</div>
+
+
+		<!-- Coupon table will be here -->
+		<!-- 
+		td * 3 
+		 1 -> COUPON	
+		 2 -> COUPON CODE		
+		 3 -> VALUE	
+		-->
+
+		<div class="px-6 my-3 w-8/12 ">
+			<div class="flex uppercase text-base font-medium text-muted"><span>Subscription Term</span></div>
+		</div>
+		<hr class="h-auto mx-6 mb-6 w-full border-b border-secondarygraydarker" />
+
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12 text-red-500">Subscription Number#*</div>
+				<div class="w-4/12 flex">
+					<input type="text" name="" value="INV-000004"
+						class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12">Start Date</div>
+				<div class="w-4/12 flex">
+					<input type="date" name=""
+						class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12">Expires After</div>
+				<div class="w-4/12 flex flex-col">
+					<div class="flex items-center">
+						<input type="text" value="" disabled
+							class="w-full py-1.5 px-2 rounded-l border-l border-t border-b border:secondarygray focus:border-secondaryblue" />
+						<div class="bg-secondarygraydarker border-l border-t border-b border-secondarygraydarker px-3 py-1.5 rounded-r">
+							cycles
+						</div>
+					</div>
+					<div class="pt-2 flex">
+						<input checked type="checkbox" value="" name="aaa"
+							class="w-4 h-4 focus:bg-secondaryblue focus:ring-2" />
+							<label class="ms-2">Never Expires</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12">Reference </div>
+				<div class="w-4/12 flex">
+					<input type="text" name=""
+						class="w-full rounded border border:secondarygray py-1.5 px-2 focus:border-secondaryblue" />
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col px-6 w-8/12">
+			<div class="flex pt-4 items-center">
+				<div class="w-3/12">Payment Mode </div>
+				<div class="w-4/12 flex">
+					<input type="checkbox" value="" name="aaa"
+						class="w-4 h-4 focus:bg-secondaryblue focus:ring-2" />
+						<label class="ms-2">Collect payment offline</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	@CreateFooter()
+</div>
+}
+
+templ FullCreate() {
+@layouts.AdminApp() {
+@Create()
+}
+}
+
+templ CreateHeader() {
+<div class="border-b border:secondarygray pb-2 px-6">
+	<div class="text-2xl font-semibold">
+		New Subscription
+	</div>
+</div>
+}
+
+
+templ CreateFooter() {
+<div class="fixed bottom-0 px-6 py-8 w-full h-12 bg-white shadow-md flex items-center text-sm border-t border-gray">
+	<div class="flex flex-row w-full">
+		<div class="w-6/12">
+			<div class="flex space-x-2">
+				@components.Button("Continue", components.ColorGreen, false, nil)
+				@components.Button("Cancel", components.ColorGray, false, nil)
+			</div>
+		</div>
+	</div>
+</div>
+}

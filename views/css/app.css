@@ -57,7 +57,7 @@ aside li:hover>a:nth-child(2) {
     /* Scroolbar */
     /* width */
     ::-webkit-scrollbar {
-        @apply w-1
+        @apply w-2
     }
 
     /* Track */

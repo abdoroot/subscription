@@ -17,6 +17,7 @@ import (
 	"github.com/abdoroot/subscription/views/item"
 	psview "github.com/abdoroot/subscription/views/paymentsreceived"
 	subitem "github.com/abdoroot/subscription/views/subscriptionitem"
+	subsview "github.com/abdoroot/subscription/views/subscriptions"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/joho/godotenv"
@@ -192,6 +193,17 @@ func main() {
 				return util.RenderHtml(c, psview.Create())
 			}
 			return util.RenderHtml(c, psview.FullCreate())
+		})
+	}
+
+	subscriptions := router.Group("/subscriptions")
+	{
+		subscriptions.Get("/new", func(c *fiber.Ctx) error {
+			//todo select payment(terms) due date when offline payment
+			if IsHXRequest(c) {
+				return util.RenderHtml(c, subsview.Create())
+			}
+			return util.RenderHtml(c, subsview.FullCreate())
 		})
 	}
 

@@ -1,0 +1,22 @@
+package components
+
+import "fmt"
+
+type SubscriptionCreatePlanTableRowCfg struct {
+Quantity,Price,Amount float32
+PlanName string
+}
+
+templ SubscriptionCreatePlanTableRow(cfg SubscriptionCreatePlanTableRowCfg) {
+<tr class="border-b border-secondarygray">
+    <td class="border-0 py-2">
+        <textarea placeholder="Select a plan" name="item_details"
+            class="w-full rounded border-0 py-1.5 px-2 focus:border-secondaryblue"></textarea>
+    </td>
+    <td class="border-0 "><input type="number" name="quantity" value={ fmt.Sprint(cfg.Quantity) } min="0"
+        class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" /></td>
+        <td class="border-0"><input type="number" name="quantity" value={ fmt.Sprintf("%.2f",cfg.Price) } min="0"
+        class="rounded border-0 py-1.5 px-2 text-right focus:border-secondaryblue" /></td>
+    <td class="border-0 py-2 px-2">{fmt.Sprintf("%.2f", cfg.Amount)}</td>
+</tr>
+}
